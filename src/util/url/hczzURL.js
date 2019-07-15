@@ -1,3 +1,4 @@
+// 合成作战url
 export default {
   getListSeries: 'ssSeriesInfoController/listSeriesByNos', // 案串编号查询
   upload: "upload/batch", // 上传文件

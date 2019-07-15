@@ -1,4 +1,6 @@
-import hczzURL from '../url/hczzURL.js';
+import hczzURL from '../url/hczzURL.js';  // 合成作战中的url地址
+import { uniq } from '@/util/publicTools.js'; // 数组去重
+import uploading from './hczzUploadName.js';  // 这个是控制 技侦，网侦， 或者视频 上传input标签
 // 合成作战中的通用方法
 export default {
   methods: {
@@ -150,6 +152,80 @@ export default {
       }
       this.isCoprStatus = "0"; // 0 草稿
       this.submitForm();
+    },
+    //  文件上传
+    async uploadFiles(e,num) {
+      let fileList = e.currentTarget.files;
+      let formData = new FormData();
+      
+      for (var i = 0; i < fileList.length; i++) {
+        formData.append("files", fileList[i]);
+      }
+      // 上传文件接口
+      let data = await this.$Ajax.form(`upload/batch?classify=${num}`, formData);
+      this.instructForm[uploading[num][0]] = uploading[num][1];  // 提示信息
+      if (data.data.length > 0) {
+        data.data.forEach(item => {
+          //item.classify = "9";
+          this[uploading[num][2]].push(item); // 提交表单需要的数据
+          this[uploading[num][3]].push(item.fileName);  // 展示的名字
+        });
+      }
+      // 数组去重
+      this[uploading[num][3]] = uniq(this[uploading[num][3]]);  // 展示的名字
+    },
+    // 删除文件
+    deleleFile(item, child, num) {
+      // 1:item 用来获取需要删除的文件ID  和名字    2:child  是input标签DOM元素  3: num控制技侦，网侦，视频    
+      let params = {id: item.id};
+      this.$confirm("此操作将删除附件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(async () => {
+          this.$Ajax
+            .post("fightcmd/delAttachments", params, true)
+            .then(data => {
+              console.log("附件删除成功", data);
+            });
+          let path = "";
+          let url =
+            "upload/deleteFile?id=" +
+            item.id +
+            "&fileName=" +
+            item.fileName +
+            "&path=" +
+            path;
+          let data = await this.$Ajax.post(url, {}, true);
+
+          if (data.status !== 200) {
+            this.$message({ message: "附件删除失败", type: "warning" });
+          }
+
+          this.originFileList.forEach((ele, index) => {  // 删除列表中展示的那条数据
+            if (ele.id === item.id) {
+              this.originFileList.splice(index, 1);
+            }
+          });
+
+          this.ayData.attachments.forEach((ele, index) => { // 删除需要提交的数据列表中的那条数据
+            if (ele.id === item.id) {
+              this.ayData.attachments.splice(index, 1);
+            }
+          });
+
+          child.value = ""; //..上传input的value置空
+
+          this.$message({
+            message: "附件删除成功",
+            type: "success"
+          });
+      }).catch(err => {
+        this.$message({
+          type: "info",
+          message: "已取消删除"
+        });
+      });
     },
   }
 }

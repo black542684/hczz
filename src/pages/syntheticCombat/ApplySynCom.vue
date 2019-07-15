@@ -933,7 +933,7 @@ export default {
       let that = this;
       this.$Ajax.get(that.url.getInformationUrl, that.params).then(data => {
         that.infos = data.data.cmdDetails;
-        console.log("是数据啊", data.data);
+        console.warn("是数据啊", data.data);
         that.instructForm.coprName = that.infos.coprName; // 名称
         that.instructForm.coprCode = that.infos.coprCode; // 编号
         that.instructForm.createDepName = that.infos.createDepName; // 发起单位
@@ -997,7 +997,7 @@ export default {
           });
         }
         that.instructForm.createConfirm = that.infos.createConfirm;
-      });
+      }).catch(err => console.error(err));
     },
     // 提交
     submit(formName) {
@@ -1148,29 +1148,28 @@ export default {
       this.$Ajax.form(that.url.uploadUrl, formData).then(data => {
         console.log("案源信息附件上传", data);
         if (data.data.length > 0) {
-          if (p === "jz") {
+          if (p === "jz") {  // 4
+            that.instructForm.jzFile = "技侦附件已上传";    
+            that.jzHzUploadList = [];   // 清空需要展示的名字
             data.data.forEach(item => {
               item.classify = "4";
-              that.jzUploadFile.push(item);
+              that.jzUploadFile.push(item);  // 点击提交的时候需要的数据
+              that.jzHzUploadList.push(item.fileName);// 展示名字
             });
-            // that.jzUploadFile = data.data
-            that.instructForm.jzFile = "技侦附件已上传";
-            that.jzHzUploadList = [];
-            that.jzUploadFile.forEach(item => {
-              that.jzHzUploadList.push(item.fileName);
-            });
-          } else if (p === "wj") {
+          } 
+          else if (p === "wj") {   // 5
             data.data.forEach(item => {
               item.classify = "5";
-              that.wzUploadFile.push(item);
+              that.wzUploadFile.push(item); // 点击提交的时候需要的数据
             });
             // that.wzUploadFile = data.data
             that.instructForm.wzFile = "网侦附件已上传";
             that.wzHzUploadList = [];
             that.wzUploadFile.forEach(item => {
-              that.wzHzUploadList.push(item.fileName);
+              that.wzHzUploadList.push(item.fileName);// 展示名字
             });
-          } else if (p === "sp") {
+          } 
+          else if (p === "sp") {   // 6
             data.data.forEach(item => {
               item.classify = "6";
               that.spUploadFile.push(item);
@@ -1179,7 +1178,7 @@ export default {
             that.instructForm.spFile = "视频附件已上传";
             that.spHzUploadList = [];
             that.spUploadFile.forEach(item => {
-              that.spHzUploadList.push(item.fileName);
+              that.spHzUploadList.push(item.fileName);// 展示名字
             });
           }
         }

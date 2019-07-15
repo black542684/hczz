@@ -9,15 +9,15 @@ export default {
         formData.append("files", fileList[i]);
       }
       if (fileList !== "") {
-        this.ayData.originFile = "线索协查信息附件已上传";
+        this.ayData.originFile && (this.ayData.originFile = "线索协查信息附件已上传");
       }
       // 上传文件接口
       let data = await this.$Ajax.form(`upload/batch?classify=${num}`, formData);
       if (data.data.length > 0) {
         data.data.forEach(item => {
           //item.classify = "9";
-          this.ayData.attachments.push(item);
-          this.originFileList.push(item);
+          this.ayData.attachments.push(item);  // 需要上传的数据列表
+          this.originFileList.push(item);   // 展示的文件名字
         });
       }
       // 数组去重
