@@ -1,0 +1,69 @@
+* {
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.detail-syncom {
+    width: 100%;
+    padding: 0 30px;
+}
+
+/* ---------------------------- detail-title ---------------------------- */
+
+.detail-title {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 70px;
+}
+.detail-title > div {
+    font-size: 16px;
+    line-height: 70px;
+}
+.detail-title .back {
+    position: relative;
+    color: #0077d4;
+    margin-left: 22px;
+    cursor: pointer;
+}
+.detail-title .back:before {
+    position: absolute;
+    top: 2px;
+    left: -12px;
+    content: "";
+    width: 2px;
+    height: 18px;
+    background-color: #d7dde5;
+}
+.detail-title > div:last-child {
+    color: #0077d4;
+    font-size: 14px;
+    width: 100px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border: 1px solid #3173bf;
+    border-radius: 3px;
+    margin-top: 21px;
+    cursor: pointer;
+}
+
+/* ---------------------------- main ---------------------------- */
+
+main {
+    width: 100%;
+}
+.hc-infos {
+    width: 100%;
+    border: 1px solid #d7dde5;
+}
+.hc-infos .hc-infos-title {
+    height: 40px;
+    line-height: 40px;
+}

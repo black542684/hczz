@@ -1,0 +1,60 @@
+/*话单统计中的tab*/
+.tabbox .el-tabs__header {
+  height: 45px;
+  line-height: 45px;
+  /*background: #F2F7FC;*/
+}
+.tabbox .el-tabs__nav-wrap::after {
+  height: 1px;
+  background-color: #dcdee2;
+}
+.tabbox .el-tabs__nav-scroll {
+  padding-left: 0;
+  margin: 0 15px;
+}
+.tabbox .el-tabs__nav-next, .el-tabs__nav-prev {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  background: #cfd3d6;
+  border-radius: 3px;
+}
+.tabbox .el-tabs__nav-prev {
+  left: 5px;
+  top: 10px;
+}
+.tabbox .el-tabs__nav-next {
+  right: 5px;
+  top: 10px;
+}
+.tabbox .el-tabs__nav-wrap.is-scrollable {
+  padding-left: 30px;
+}
+
+.tabbox .el-tabs__content {
+  /*padding: 10px;*/
+}
+
+.calllist .el-table__body-wrapper {
+  overflow: auto;
+}
+
+.basestationlist .el-table__body-wrapper {
+  overflow-y: auto;
+}
+.tabbox .el-table__body-wrapper {
+  overflow: auto;
+}
+.searchbox .el-radio__label{
+  color: #ffffff;
+}
+
+.callnumlist .el-table__body-wrapper {
+  overflow: auto;
+}
+
+.el-checkbox__label {
+  font-size: 12px;
+}
+

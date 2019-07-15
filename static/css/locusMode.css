@@ -1,0 +1,365 @@
+.trackMode{
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    padding-right: 252px;
+  }
+  .trackModeMain{
+      width: 100%;
+      height: 100%;
+      position: relative;
+  }
+  .trackModeRight{
+      width: 252px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      box-sizing: border-box;
+      border: 1px solid #dcdee2;
+      border-top: none;
+      padding-left: 3px;
+  }
+  .timeDiv{
+      width: 100%;
+      height: 34px;
+      background: #f5f8fa;
+      box-sizing: border-box;
+      padding: 0 15px;
+      line-height: 34px;
+  }
+  .timeDiv span{
+      display: inline-block;
+      line-height: 34px;
+      float: left;
+      font-size: 12px;
+      color: #515a6e;
+  }
+ .sessionMain{
+     width: 100%;
+     height: auto;
+     margin-top: 10px;
+ }
+ .sessionTitle{
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    font-size: 12px;
+    color: #17233d;
+ }
+ .sessionCenter{
+    width: 100%;
+    height: 200px;
+    border-bottom: 1px solid #e8eaec;
+ }
+ .sessionList{
+    width: 100%;
+    height: 200px;
+ }
+ .activityNumMain,.eventMain{
+     width: 100%;
+     height: auto;
+     
+ }
+ .activityNumCenter{
+    width: 100%;
+    height: 225px;
+    border-bottom: 1px solid #e8eaec;
+ }
+ .activityNumPie{
+    width: 100%;
+    height: 225px;
+ }
+ .eventCenter{
+     width: 100%;
+     height: auto;
+ }
+ .eventCenterLine{
+     width: 100%;
+     min-height: 200px;
+ }
+
+
+ .locationList {
+     width: 100%;
+ }
+ .locationList .multiplayerDisplayMain {
+     border-bottom: 1px solid #dcdee2;
+     cursor: pointer;
+ }
+ .pagination {
+     text-align: center;
+ }
+ .total {
+     padding-left: 10px;
+ }
+
+
+
+
+
+
+
+
+ /* 多人列表 */
+.multiplayerDisplay{
+    width: 100%;
+    height: auto;
+}
+.multiplayerDisplayMain{
+    width: 100%;
+    height: auto;
+}
+.multiplayerDisplayCenter{
+    width: 100%;
+    height: auto;
+    border-top: 1px solid #e8eaec
+}
+.mpdcList{
+    width: 100%;
+    height: 83px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e8eaec;
+    position: relative;
+    padding-left: 55px;
+    padding-right: 45px;
+    cursor: pointer;
+}
+
+.mpdcSpanLeft{
+    display: inline-block;
+    position: absolute;
+    width: 55px;
+    height: 82px;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    padding-top: 20px;
+
+}
+.mpdcSpanLeft img{
+    margin: 0 auto;
+    display: block;
+}
+.mpdDivCenter{
+    width: 100%;
+    height: 82px;
+    box-sizing: border-box;
+    padding-top: 17px;
+}
+.mpdDivCenter p{
+    line-height: 20px;
+    font-size: 12px;
+    color: #515a6e;
+}
+.mpdcSpanRight{
+    display: inline-block;
+    position: absolute;
+    width: 45px;
+    height: 82px;
+    right: 0;
+    top: 0;
+    line-height: 82px;
+    text-align: center;
+    font-size: 14px;
+    color: #515a6e
+}
+.mpdcList:hover .mpdDivCenter p,
+.mpdcList:hover .mpdcSpanRight,
+.locationList .multiplayerDisplayMain:hover .spanLeft,
+.locationList .multiplayerDisplayMain:hover .divRight {
+    color: #5cadff !important;
+  
+}
+
+
+
+
+
+
+
+ /* 单人详情 */
+ .informationDetails{
+     width: 100%;
+     height: auto;
+ }
+ .informationDetailsIcon{
+     width: 100%;
+     height:85px;
+     box-sizing: border-box;
+     padding-top: 15px;
+ }
+ .informationDetailsIcon img{
+    margin: 0px auto;
+    display: block;
+    overflow: hidden;
+ }
+ .informationDetailsCenter{
+     width: 100%;
+     height: auto;
+     border-bottom: 1px solid #e8eaec;
+ }
+ .imdcRow{
+     height: 30px;
+     position: relative;
+     line-height: 30px;
+     box-sizing: border-box;
+     padding-left: 65px;
+ }
+ .spanLeft{
+     width: 65px;
+     position: absolute;
+     top: 0;
+     left: 0;
+     line-height: 30px;
+     text-align: right;
+     box-sizing: border-box;
+     padding-right: 3px;
+     font-size: 12px;
+     color: #515a6e;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
+ .divRight{
+     width: 100%;
+     line-height: 30px;
+     font-size: 12px;
+     color: #515a6e;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
+ .detailsList{
+     width: 100%;
+     height: auto;
+ }
+ .detailsListTitle{
+     width: 100%;
+     height: 30px;
+     line-height: 30px;
+     font-size: 12px;
+     color: #2d8cf0;
+     box-sizing: border-box;
+     padding: 0 5px;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
+ .detailsListMain{
+     width: 100%;
+     height: auto;
+     box-sizing: border-box;
+     padding: 0 5px;
+ }
+ .detailsListMainList{
+     width: 100%;
+     height: 45px;
+     box-sizing: border-box;
+     border: 1px solid #dcdee2;
+     border-radius: 4px;
+     position: relative;
+     padding-left: 30px;
+     margin-bottom: 10px;
+     cursor: pointer;
+ }
+ .detailsListMainList.active {
+    border: 1px solid #2d8cf0; 
+ }
+ .dlmlSpanLeft{
+     position: absolute;
+     width: 30px;
+     box-sizing: border-box;
+     left: 0;
+     top: 0;
+     border-right: 1px solid #dcdee2;
+     display: inline-block;
+     height: 43px;
+     line-height: 43px;
+     text-align: center;
+     font-size: 12px;
+     color: #515a6e;
+ }
+ .dlmlDivRignt{
+     width: 100%;
+     height: 43px;
+ }
+ .dlmlDivRignt span{
+    display: inline-block;
+    line-height: 20px;
+    float: left;
+    padding-left: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: #515a6e;
+ }
+ .dlmlDivRignt span:nth-child(2){
+     line-height: 43px;
+ }
+
+
+
+
+
+
+
+/* 全选框 */
+#map {
+    width: 100%;
+    height: 100%;
+}
+.checkBox {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 96px;
+    height: 30px;
+    line-height: 28px;
+    background-color: #fff;
+    border: 1px solid #dcdee2;
+    border-radius: 4px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+.checkBox .icon-danjiantou {
+    position: absolute;
+    right: 10px;
+    transition: transform .5s
+}
+.checkBox .icon-danjiantou.rotate {
+    transform: rotate(180deg)
+}
+.checkList {
+    position: absolute;
+    top: 32px;
+    right: 0;
+    width: 150px;
+    background-color: #fff;
+    border: 1px solid #dcdee2;
+    border-radius: 4px;
+}
+.listItems {
+    max-height: 300px;
+    overflow-y: auto;
+}
+.listItem {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+}
+.itemcheckbox {
+    float: left;
+}
+.checkListText {
+    float: left;
+    width: 100px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 5px;
+}
+.btn {
+    text-align: center;
+    padding-bottom: 10px;
+}

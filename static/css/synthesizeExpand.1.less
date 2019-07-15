@@ -1,0 +1,57 @@
+//  定义语法糖
+@bg: background; //  背景色
+@pos: position; //  定位
+@fs: font-size; //  字号
+@fw: font-weight; //  字体粗细
+@lh: line-height; //  行高
+
+#synthesizeExpand {
+  width: 1306px;
+  margin: 0 auto;
+  padding-top: 20px;
+  .el-input__inner {
+    height: 30px;
+    border-radius: 0;
+  }
+  .topBox {
+    height: 110px;
+    @{bg}: #f7faff;
+    .el-input-group__append {
+        background-color: #3173bf;
+        color: #fff;
+        // height: 30px;
+      }
+    > div {
+      float: left;
+      margin-top: 40px;
+    }
+    .selectBox {
+      margin-left: 309px;
+      span {
+        color: red;
+        @{fw}: bold;
+        font-size: 14px;
+      }
+      .el-input__inner {
+        width: 105px;
+      }
+    }
+    .inpBox {
+      margin-left: 12px;
+      .el-input__inner {
+        width: 455px;
+      }
+    }
+  }
+  .tableBox {
+    .customPageCom {
+      span {
+        display: inline-block;
+        border: 1px solid #000;
+      }
+    }
+  }
+}
+
+
+

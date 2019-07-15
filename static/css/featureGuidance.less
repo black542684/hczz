@@ -1,0 +1,358 @@
+// 特征引导串页面样式
+#featureGuidance {
+  width: 1306px;
+  margin: 0 auto;
+  // padding-top: 20px;
+  padding-bottom: 40px;
+
+  .el-select-dropdown__item.selected {
+    color: #ff4c2f;
+  }
+
+  .headNavigation {
+    // padding: 0 30px;
+  }
+  .activePanl {
+    padding-top: 20px;
+    .panlHeader {
+      box-sizing: border-box;
+      height: 60px;
+      padding: 18px 0 0 20px;
+      border: 1px solid #d7dde5;
+      background-color: #f7faff;
+      ul {
+        float: left;
+        li {
+          float: left;
+          height: 24px;
+          width: 120px;
+          color: #121e3d;
+          font-weight: bold;
+          text-align: center;
+          line-height: 24px;
+          cursor: pointer;
+        }
+        .activeLi {
+          background-color: #005ba2;
+          border-radius: 10px;
+          color: #fff;
+        }
+      }
+      .selectFilter {
+        float: left;
+        margin-left: 30px;
+        color: #6b757e;
+        font-weight: bold;
+        /deep/ .el-input__inner {
+          width: 204px;
+          height: 27px;
+          border-radius: 0;
+        }
+        /deep/ .el-input__icon {
+          line-height: 27px;
+        }
+        // .el-icon-error:hover {
+        //   color:red;
+        // }
+      }
+      .rightOpt {
+        float: right;
+        .el-button {
+          width: 100px;
+          height: 28px;
+          background-color: #005ba2;
+          color: #fff;
+          padding: 0;
+          line-height: 28px;
+          margin-right: 10px;
+        }
+        .collapse {
+          display: inline-block;
+          height: 28px;
+          border-left: 1px solid #d7dde5;
+          line-height: 28px;
+          color: #6b757e;
+          padding: 0 10px;
+          cursor: pointer;
+        }
+      }
+    }
+    .smallCaseBox {
+      padding-left: 20px;
+      padding-bottom: 30px;
+      background-color: #fff;
+      border: 1px solid #d7dde5;
+      border-top: none;
+      .el-checkbox {
+        margin-top: 20px;
+      }
+    }
+    .caseFeatureBox {
+      border: 1px solid #d7dde5;
+      border-top: none;
+      padding-bottom: 1px;
+      .featureBox {
+        position: relative;
+        padding-left: 93px;
+        padding-right: 1px;
+        text-align: center;
+      }
+      .featureTitle {
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        width: 90px;
+        border: 1px solid #d7dde5;
+        background-color: #f7faff;
+
+      }
+      ul {
+        // margin-left: 1px;
+        overflow: hidden;
+      }
+      li {
+        float: left;
+        margin-left: 1px;
+        width: 118px;
+        height: 40px;
+        line-height: 40px;
+        margin-top: 1px;
+        border: 1px solid #d7dde5;
+        cursor: pointer;
+        background-color: #fff;
+        color: #121e3d;
+      }
+      .activeFeature {
+        background-color: #2386d2;
+        color: #fff;
+      }
+    }
+  }
+  .featureGuidanceTableBox {
+    margin-top: 11px;
+    .optHeader {
+      position: relative;
+      box-sizing: border-box;
+      height: 60px;
+      line-height: 60px;
+      padding-left: 20px;
+      color: #6b757e;
+      border: 1px solid #d7dde5;
+      border-bottom: none;
+      background-color: #f7faff;
+      a {
+        margin-left: 25px;
+        text-decoration: underline;
+        color: #0077d4;
+        cursor: pointer;
+      }
+      .optRight {
+        height: 60px;
+        float: right;
+        // overflow: hidden;
+        .el-button {
+          padding: 0 20px;
+          height: 28px;
+          background-color: #005ba2;
+          color: #fff;
+        }
+        .exportBtn {
+          padding: 0 36px;
+          margin-right: 10px;
+        }
+        .pageBox {
+          display: block;
+          height: 30px;
+          float: right;
+          margin-top: 15px;
+        }
+      }
+    }
+    .optMiddle {
+      height: 50px;
+      line-height: 50px;
+      padding-left: 20px;
+      color: #6b757e;
+      border: 1px solid #d7dde5;
+      border-bottom: none;
+      >div {
+        display: inline-block;
+        label {
+          color: #6b757e;
+        }
+        /deep/ .el-input__inner {
+          height: 28px;
+          border-radius: 0;
+        }
+        /deep/ .el-input__icon {
+          line-height: 28px;
+        }
+      }
+      .suitability {
+        /deep/ .el-input__inner {
+          width: 85px;
+        }
+      }
+      .caseDivision {
+        /deep/ .el-input__inner {
+          width: 339px;
+        }
+
+        margin-left: 40px;
+      }
+      .incidentTime {
+        /deep/ .el-input__inner {
+          width: 340px;
+        }
+        /deep/ .el-range-editor.el-input__inner {
+          padding: 0 10px;
+        }
+        margin-left: 16px;
+      }
+      .keyWord {
+        margin-left: 65px;
+        width: 300px;
+        label {
+          float: left;
+        }
+        .searchBox {
+          /deep/ .el-input {
+            width: 230px;
+          }
+        }
+      }
+    }
+    .tableMainBox {
+      // margin-top: 20px;
+      .tableHeadClass {
+        border: 1px solid red;
+      }
+      /deep/ .el-table tr:nth-child(1){
+        border:1px solid #d7dde5;
+      }
+      /deep/ .el-table th {
+        background-color: #eef4f9;
+        color: #6b757e;
+        height: 34px;
+        padding: 0;
+        border: 1px solid #d7dde5;
+        border-left:none;
+        border-right: none;
+      }
+      /deep/ .el-table th:first-of-type{
+        border-left:1px solid #d7dde5;
+      }
+      /deep/ .el-table th:nth-child(8){
+        border-right:1px solid #d7dde5;
+      }
+      /deep/ .el-table tr {
+        // border: 1px solid red;
+        background-color: #f7faff;
+      }
+      .blackClass {
+        color: #121e3d;
+        font-weight: bold;
+      }
+      /deep/ .el-table__body tr td {
+        height: 112px;
+      }
+      /deep/ .el-table tr td:first-of-type {
+        border-left: 1px solid #d7dde5;
+      }
+      /deep/ .el-table tr td:last-of-type {
+        border-right: 1px solid #d7dde5;
+      }
+      .greyClass {
+        color: #6b757e;
+      }
+    }
+    .tableBoxBottom {
+      position: relative;
+      height: 60px;
+      line-height: 60px;
+      padding-left: 20px;
+      border: 1px solid #D7DDE5;
+      border-top: none;
+      background-color: #f7faff;
+      color: #6b757e;
+      font-weight: bold;
+      .pageBox {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+      }
+      span {
+        color: #212d4a;
+      }
+    }
+  }
+
+  // element弹框公共样式
+  /deep/ .el-dialog__header {
+    padding: 10px 20px 10px;
+    border-bottom: 1px solid #D7DDE5;
+  }
+  /deep/ .el-dialog__title {
+    font-size: 14px;
+    color: #121e3d;
+  }
+  /deep/ .el-dialog__body {
+    padding: 20px 40px 40px 20px;
+  }
+  /deep/ .el-dialog__footer {
+    padding: 0;
+    // margin-top: 30px;
+    height: 60px;
+    /deep/ .dialog-footer {
+      text-align: center;
+      border-top: 1px solid #D7DDE5;
+      padding-top: 15px;
+      /deep/ .el-button {
+        height: 30px;
+        background-color: #3173bf;
+        color: #fff;
+        // border-radius: 0;
+        line-height: 30px;
+        padding: 0;
+        width: 100px;
+      }
+    }
+  }
+  .filterNameerror{
+    color: red;
+  }
+  .saveFilterInpBox {
+    margin-top: 5px;
+  }
+  .confirmSeriesDialog {
+
+    /deep/ .el-form-item__label {
+      color: #6b757e;
+      font-weight: bold;
+    }
+    /deep/ .el-input__inner {
+      border-radius: 0;
+      height: 28px;
+    }
+    .el-select {
+      width: 100%;
+    }
+    /deep/ .el-textarea__inner {
+      height: 170px;
+      border-radius: 0;
+      resize:none;
+    }
+    .upload-demo {
+      /deep/ .el-button {
+        background-color: #fff;
+        color: #121e3d;
+        border-radius: 0;
+        border-color: #c1cfdf;
+        height: 28px;
+      }
+    }
+    /deep/ .el-dialog__footer {
+      margin-top: 30px;
+    }
+  }
+}

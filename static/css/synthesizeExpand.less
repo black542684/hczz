@@ -1,0 +1,408 @@
+//  定义语法糖
+@bg: background; //  背景色
+@pos: position; //  定位
+@fs: font-size; //  字号
+@fw: font-weight; //  字体粗细
+@lh: line-height; //  行高
+
+#synthesizeExpand {
+  width: 1306px;
+  margin: 0 auto;
+  padding-top: 20px;
+
+  .selectSeriesBox {
+    // background-color: #F7FAFF;
+    h3 {
+      padding-left: 20px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 14px;
+      background-color: #F1F6FF;
+      color:#6b757e;
+      border: 1px solid #D7DDE5;
+    };
+
+    .selectSeries {
+      padding-left: 20px;
+      background-color: #F7FAFF;
+      border: 1px solid #D7DDE5;
+      border-top: none;
+      div {
+        display: inline-block;
+        margin: 20px 88px 20px 0;
+        /deep/ .el-checkbox__label {
+          color: #000;
+        }
+      }
+    }
+  };
+  .collisionCondition{
+    margin-top: 10px;
+    h3 {
+      padding-left: 20px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 14px;
+      background-color: #F1F6FF;
+      color:#6b757e;
+      border: 1px solid #D7DDE5;
+    };
+    .conditions {
+      position: relative;
+      padding-left: 20px;
+      background-color: #F7FAFF;
+      border: 1px solid #D7DDE5;
+      border-top: none;
+      // width: 1044px;
+      padding-right: 260px;
+      .conditionItem {
+        display: inline-block;
+        margin: 20px 188px 20px 0;
+        span {
+          color:#E75C42;
+        }
+      };
+      .lookCondition {
+        position: absolute;
+        right: 0;
+        top: 16px;
+        text-align: center;
+        width: 260px;
+        border-left: 1px solid #D7DDE5;
+        a {
+          text-decoration: underline;
+          color: #59A1FE;
+          cursor: pointer;
+        }
+      }
+    }
+  };
+  .recommendExpand {
+    margin-top: 10px;
+    h3 {
+      padding-left: 20px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 14px;
+      background-color: #F1F6FF;
+      color:#6b757e;
+      border: 1px solid #D7DDE5;
+    };
+    .operationBox {
+      position: relative;
+      padding-left: 20px;
+      height: 40px;
+      background-color: #F1F6FF;
+      border: 1px solid #D7DDE5;
+     
+      line-height: 40px;
+      a {
+        margin-left: 20px;
+        text-decoration: underline;
+        color: #1781D7;
+        cursor: pointer;
+      }
+      .operationRight {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+      }
+    };
+    .operationLeft{
+      span{
+        font-size: 14px;
+        color:#6b757e;
+      }
+      .el-button{
+        width: 98px;
+        background-color: #3173bf;
+        color: #fff;
+        height: 30px;
+        padding: 0px 0px;
+        margin-left: 84%;
+      }
+    };
+    .casesBox {
+      .caseItem {
+        border: 1px solid #D7DDE5;
+        border-top: none;
+
+        .caseHead {
+          padding-left: 20px;
+          // height: 50px;
+          // line-height: 50px;
+          background-color: #F1F6FF;
+          position: relative;
+          .hit {
+            color:#76828C;
+            display: inline-block;
+            top: 11px;
+            position: absolute;
+          }
+          .casedata{
+            display: inline-block;
+            width: 98%;
+            ul{
+              display: inline-block;
+              li{
+                display: inline-block;
+                line-height: 36px;
+              }
+            }
+          }
+          // .hitValueBox {
+          //   width: 80%;
+          //   overflow: hidden;
+          //   display: inline-block;
+          // }
+          .headCaseNum {
+
+            margin-left: 53px;
+          }
+          .headPhone {
+            margin-left: 60px;
+          }
+          .headMeans {
+            margin-left:160px ;
+          }
+          .headPlace {
+            margin-left: 160px;
+          }
+        }
+        .caseBody {
+          height: 133px;
+          background-color: #F7FAFF;
+          >div {
+            float: left;
+            box-sizing: border-box;
+          }
+          .bodyleft {
+            width: 85px;
+            padding-left: 20px;
+            padding-top: 20px;
+            .percent {
+              margin-top: 50px;
+
+              font-weight: bold;
+            }
+            .worstCase {
+              color: #ff4c2f;
+            }
+            .goodCase {
+              color: #5fb958;
+            }
+            .badCase {
+              color: #cfac38;
+            }
+            .healthCase {
+              color:#30c4d1;
+            }
+          }
+          .bodyCenter {
+            width: 250px;
+            height: 90px;
+            margin-top: 20px;
+            padding-left: 60px;
+            border-left: 1px solid #D7DDE5;
+            a {
+              text-decoration: underline;
+              color: #0077d4;
+            }
+            p {
+              margin-top: 23px;
+            }
+          }
+          .bodyRight {
+            float: right;
+            margin-top: 20px;
+            padding-left: 60px;
+            border-left: 1px solid #D7DDE5;
+            height: 90px;
+            padding-right: 55px;
+            width: 960px;
+            line-height: 22px;
+            color:#121e3d;
+            p {
+              // height: 90px;
+              overflow: hidden;
+              // white-space: nowrap;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+               -webkit-line-clamp: 4;
+              -webkit-box-orient: vertical;
+              //height: 93px;
+            }
+          }
+        }
+      }
+    }
+    .caseBottom {
+      position: relative;
+      height: 60px;
+      line-height: 60px;
+      padding-left: 20px;
+      border: 1px solid #D7DDE5;
+      border-top: none;
+      background-color: #f7faff;
+      color: #6b757e;
+      font-weight: bold;
+      .pageBox {
+        position: absolute;
+        right: 10px;
+        top: 15px;
+      }
+      span {
+        color: #212d4a;
+      }
+    }
+  }
+  .synthesizeExpandBottom {
+    height: 90px;
+    .confirmSeriesBtn {
+      margin: 30px auto 0;
+      width: 180px;
+      .el-button {
+        width: 180px;
+        background-color: #3173bf;
+        color: #fff;
+      }
+    }
+  }
+  // element弹框公共样式
+  /deep/ .el-dialog__header {
+    padding: 10px 20px 10px;
+    border-bottom: 1px solid #D7DDE5;
+  }
+  /deep/ .el-dialog__title {
+    font-size: 14px;
+    color: #121e3d;
+  }
+  // 碰撞条件弹框样式
+  .collisionDialog {
+
+    /deep/ .el-dialog__headerbtn {
+      top: 15px;
+    }
+    /deep/ .el-dialog__body {
+      padding: 0;
+      >div {
+        padding: 0 20px;
+        // padding-left: 26px;
+        padding-bottom: 10px;
+        margin-top: 20px;
+        h3 {
+          padding-left: 10px;
+          border-left: 2px solid #3173bf;
+          font-size: 14px;
+          font-weight: bold;
+          color: #6b757e;
+
+        }
+        p:first-of-type {
+          margin-top: 20px;
+        }
+        p {
+          margin-top: 25px;
+          padding-left: 38px;
+          color: #222d4a;
+          label {
+            color: #6b757e;
+            font-weight: bold;
+          }
+        }
+      }
+      .tongAnYiChuan {
+        padding-left: 43px;
+        margin-top: 10px;
+        label {
+          color: #6b757e;
+          font-weight: bold;
+          color: #6b757e;
+          font-weight: bold;
+          float: left;
+          margin-top: 6px;
+        }
+        div{
+          display: inline-block;
+          width: 481px;
+        }
+        div {
+          span {
+            display: inline-block;
+            margin-left: 50px;
+            margin-top: 8px;
+          }
+        }
+      }
+      .dialogBottom {
+        height: 60px;
+        border: 1px solid #D7DDE5;
+        .confirmBtn {
+          margin: 15px auto 0;
+          width: 100px;
+          .el-button {
+            width: 100px;
+            background-color: #3173bf;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+  // 确认串并弹框样式
+  .confirmSeriesDialog {
+    /deep/ .el-dialog__body {
+      padding: 20px 40px 40px 20px;
+    }
+    /deep/ .el-form-item__label {
+      color: #6b757e;
+      font-weight: bold;
+    }
+    /deep/ .el-input__inner {
+      border-radius: 0;
+      height: 28px;
+    }
+    .el-select {
+      width: 100%;
+    }
+    /deep/ .el-textarea__inner {
+      height: 170px;
+      border-radius: 0;
+      resize:none;
+    }
+    .upload-demo {
+      .el-button {
+        background-color: #fff;
+        color: #121e3d;
+        border-radius: 0;
+        border-color: #c1cfdf;
+        height: 28px;
+      }
+    }
+    /deep/ .el-dialog__footer {
+      padding: 0;
+      margin-top: 30px;
+      height: 60px;
+      /deep/ .dialog-footer {
+        text-align: center;
+        border-top: 1px solid #D7DDE5;
+        padding-top: 15px;
+        .el-button {
+          height: 30px;
+          background-color: #3173bf;
+          color: #fff;
+          // border-radius: 0;
+          line-height: 30px;
+          padding: 0;
+          width: 100px;
+        }
+      }
+    }
+  }
+  .el-dialog__footer .el-button--default{
+    background-color: #3173bf;
+  }
+}
+
+
+

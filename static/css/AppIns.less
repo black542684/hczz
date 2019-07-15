@@ -1,0 +1,361 @@
+* {
+    box-sizing: border-box;
+}
+//  定义语法糖
+@bg:background;         //  背景色
+@bc:border-color;       //  边框色
+@pos:position;          //  定位
+@fs:font-size;          //  字号
+@fw:font-weight;        //  字体粗细
+@lh:line-height;        //  行高
+@bs:box-sizing;         //  盒子类型
+
+@inb:inline-block;      //  行内块
+
+//  面包屑
+.Breadcrumb{
+    line-height: 39px;
+    height: 39px;
+    .border-bottom(1px,#d7dde5);
+    @{fs}:14px;
+    &>span{
+        cursor: pointer;
+        &+span::before{
+            content: ' > ';
+        }
+    }
+}
+
+/* 修改饿了么样式 */
+.el-button{
+    color: #3173bf;
+    @{bc}: #3173bf;
+}
+.el-button--primary {
+    color: #fff;
+    @{bg}: #3173bf;
+    @{bc}: #3173bf;
+}
+.el-button--small, .el-button--small.is-round {
+    padding: 8px 25px;
+}
+
+//  定义混合
+.border-right(@w,@c){
+    border-right: @w solid @c;
+}
+.border-bottom(@w,@c){
+    border-bottom: @w solid @c;
+}
+.border-top(@w,@c){
+    border-top: @w solid @c;
+}
+.border-left(@w,@c){
+    border-left: @w solid @c;
+}
+.border(@w,@c){
+    border: @w solid @c;
+}
+
+.big-box{
+    width: 1306px;
+    margin: 0 auto;
+    padding: 0 0 50px;
+    box-sizing: border-box;
+    @{pos}:relative;
+}
+
+.header-container{
+    .header-title{
+        @{fs}:16px;
+        @{fw}:bold;
+        color: #121e3d;
+        .border-right(1px,#d7dde5);
+        padding-right: 10px;
+        margin-right: 10px;
+        height: 22px;
+        display: @inb;
+    }
+    .header-back{
+        @{fs}:16px;
+        color: #3173bf;
+    }
+
+    //  修改饿了么布局样式
+    .el-row-style{
+        height:70px;padding: 20px 0;
+    }
+    .el-col-style{
+        padding: 4px 10px;
+    }
+    .el-row-right{
+        text-align: right;
+    }
+
+    .form-item{
+        .border(1px,#d7dde5);
+        @{bg}:#f7faff;
+        &+.form-item{
+            margin-top: 10px;
+        }
+        .instruct-name{
+            /deep/.el-form-item__content{
+                width: 88%;
+            }
+        }
+        //  宽度为66%的表单项
+        .brief-case-content{
+            width: 66% !important;
+            margin-right: 4px;
+            height: auto !important;
+            /deep/.el-form-item__content{
+                width: 88%;
+                height: 96px;
+                textarea{
+                    resize: none;  
+                }
+            }
+        }
+        .origin-checkbox {
+            width: 66% !important;
+        }
+        .checkbox-border {
+            border-bottom: 2px solid #3173bf;
+        }
+        .compound-info {
+            /deep/.el-checkbox {
+                width: 60px;
+            }
+            /deep/.el-checkbox__label {
+                display: none;
+            }
+            /deep/.el-form-item__content {
+                position: relative;
+            }
+            .jz {
+                position: absolute;
+                top: 0;
+                left: 28px;
+                cursor: pointer;
+            }
+            .wj {
+                position: absolute;
+                top: 0;
+                left: 122px;
+                cursor: pointer;
+            }
+            .sp {
+                position: absolute;
+                top: 0;
+                left: 210px;
+                cursor: pointer;
+            }
+        }
+        // 附件列表
+        .origin-file-list {
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #a0a5ab;
+            width: 618px;
+            height: 96px;
+            padding-left: 10px;
+            background-color: #ffffff;
+            border: 1px solid #c1cfdf;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            overflow: auto;
+
+            ul {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+
+                li {
+                    width: 50%;
+                    height: 24px;
+                    line-height: 24px;
+                    span {
+                        display: inline-block;
+                        max-width: 240px;
+                        vertical-align: middle;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+                    .iconfont {
+                        font-size: 12px;
+                        margin-left: 20px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        .origin-upload {
+            position: absolute;
+            top: 0;
+            right: 0px;
+            width: 140px;
+            height: 96px;
+            background-color: #f1f6ff;
+            border: 1px solid #c1cfdf;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            > div {
+                color: #3173bf;
+                width: 100px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                background-color: #ffffff;
+                border: 1px solid #3173bf;
+                border-radius: 5px;
+                margin: 32px 20px;
+            }
+            > input {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                cursor: pointer;
+            }
+        }
+        .upload-accessory{
+            .upload-box{
+                @{pos}:absolute;
+                left: -148px;top: 1px;
+                z-index: 100;
+                width: 140px;
+                height: 94px;
+                @{bg}: #f1f6ff;
+                .border-left(1px,#c1cfdf);
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+                padding-top: 32px;
+                box-sizing: border-box;
+            }
+            /deep/.el-upload-list{
+                @{pos}: absolute;
+                left: -742px;top: 6px;
+                li{
+                    float: left;
+                    // width: 26%;
+                    width: 196px;
+                    margin-top: 0;
+                    .el-icon-close-tip{
+                        display: none !important;
+                    }
+                }
+            }
+        }
+    }
+    .form-btn-item{
+        text-align: center;
+        margin-top: 26px;
+        .el-form-item{
+            margin-bottom: 0 !important;
+        }
+    }
+    .form-title{
+        height: 39px;
+        .border-bottom(1px,#d7dde5);
+        padding-left: 18px;
+        color: #6b757e;
+        @{lh}:39px;
+        @{fs}:14px;
+        @{bg}:#f1f6ff;
+        margin-bottom: 20px;
+    }
+    /deep/.form-style{
+        color: #6b757e;
+        border-top: 0;
+    }
+    /deep/.instruct-form{
+        .el-form-item__label{
+            color: #6b757e;
+        }
+        .el-form-item{
+            width: 33%;
+            margin-right: 0;
+            margin-bottom: 18px;
+            height: 33px;
+        }
+        .el-form-item__label{
+            @{lh}:33px;
+        }
+    }
+    /* 修改指令名称宽度 */
+    /deep/.instruct-name-input{
+        input{
+            height: 28px;
+            @{lh}:28px;
+        }
+    }
+    /deep/.form-ipt-style{
+        input{
+            height: 28px;
+            @{lh}:28px;
+        }
+    }
+    /deep/.el-form-item__content{
+        @{lh}:33px;
+        height: 33px;
+        .el-select{
+            height: 33px;
+            @{lh}:33px;
+            .el-input__inner{
+                height: 28px;
+                @{lh}:28px;
+                width: 200px;
+            }
+        }
+    }
+    
+
+    
+    .btn-quote{
+        @{pos}:absolute;
+        right: -40px;top: 4px;
+        height: 28px;
+        @{lh}: 28px;
+    }
+    
+}
+
+/* 流程弹框样式 */
+.process-box{
+    width: 1306px;
+    @{pos}: absolute;
+    top: 70px;left: 0;
+    z-index: 100;
+    @{bs}:border-box;
+
+    .process-border{
+        height: 480px;
+        .border(1px,#3b79c1);
+        @{bg}:#f7faff;
+    }
+}
+
+.icon-sq{
+    width: 24px;
+    height: 24px;
+    background: url('https://www.baidu.com/img/baidu_jgylogo3.gif') no-repeat center center;
+}
+
+
+
+
+
+
+//  合战样式
+.br-style{
+    /deep/.el-form-item__label{
+        line-height: 18px !important;
+        padding-left: 16px !important;
+    }
+}

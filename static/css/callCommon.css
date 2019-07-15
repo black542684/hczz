@@ -1,0 +1,120 @@
+/* 话单模块公共样式--------------- */
+
+/* 顶部面包屑 */
+.headNavigation {
+  height: 40px;
+  /* padding-left: 30px; */
+  line-height: 40px;
+  border-bottom: 1px solid #d7dde5;
+}
+.headNavigation .el-breadcrumb {
+  line-height: 40px;
+}
+
+.calllist {
+  /* padding:0 30px; */
+  box-sizing: border-box;
+}
+
+/* element ui 公共样式 */
+.calllist .el-input__inner {
+  height: 28px;
+  border-radius:0;
+}
+.calllist .el-input__icon {
+  line-height: 28px;
+}
+
+.cdrcontainer .el-table tr:nth-child(1){
+  /* border:1px solid #d7dde5; */
+  border:1px solid red;
+}
+.cdrcontainer .el-table th {
+  background-color: #eef4f9;
+  color: #6b757e;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #d7dde5;
+  border-left:none;
+  border-right: none;
+}
+.cdrcontainer .el-table th:first-of-type{
+  border-left:1px solid #d7dde5;
+}
+.cdrcontainer .el-table th:nth-child(5){
+  border-right:1px solid #d7dde5;
+}
+.cdrcontainer .el-table tr {
+  background-color: #f7faff;
+}
+.cdrcontainer .blackClass {
+  color: #121e3d;
+  font-weight: bold;
+}
+.cdrcontainer .el-table__body tr td {
+  height: 70px;
+}
+.cdrcontainer .el-table tr td:first-of-type {
+  border-left: 1px solid #d7dde5;
+}
+.cdrcontainer .el-table tr td:last-of-type {
+  border-right: 1px solid #d7dde5;
+}
+
+.cdrcontainer .el-dialog__header {
+  padding: 10px 20px 10px;
+  border-bottom: 1px solid #d7dde5;
+}
+.cdrcontainer .el-dialog__title {
+  font-size: 14px;
+  color: #121e3d;
+}
+.cdrcontainer .el-dialog__body {
+  padding: 0 40px;
+}
+.cdrcontainer .el-dialog__body .el-input__inner {
+  border-radius: 0;
+  height: 28px;
+}
+.cdrcontainer .el-dialog__body .el-input__icon {
+  line-height: 28px;
+}
+.cdrcontainer .el-dialog__footer {
+  padding: 0;
+  margin-top: 30px;
+  height: 60px;
+}
+.cdrcontainer .dialog-footer {
+  text-align: center;
+  border-top: 1px solid #D7DDE5;
+  padding-top: 15px;
+
+}
+.cdrcontainer .dialog-footer .el-button {
+  height: 30px;
+  background: #2d8cf0;
+  color: #fff;
+  line-height: 30px;
+  padding: 0 20px;
+}
+/* 表格底部总条数 */
+.cdrcontainer .tableBoxBottom {
+  position: relative;
+  height: 60px;
+  line-height: 60px;
+  padding-left: 20px;
+  border: 1px solid #D7DDE5;
+  border-top: none;
+  background-color: #f7faff;
+  color: #6b757e;
+  font-weight: bold;
+
+}
+.cdrcontainer .tableBoxBottom .pageBox {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+.cdrcontainer .tableBoxBottom span {
+  color: #212d4a;
+}

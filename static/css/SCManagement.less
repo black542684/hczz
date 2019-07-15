@@ -1,0 +1,143 @@
+//  定义语法糖
+@bg:background;         //  背景色
+@bc:border-color;       //  边框色
+@pos:position;          //  定位
+@fs:font-size;          //  字号
+@fw:font-weight;        //  字体粗细
+@lh:line-height;        //  行高
+@bs:box-sizing;         //  盒子类型
+@inb:inline-block;      //  行内块
+
+//  定义混合
+.border(@w,@c){
+    border: @w solid @c;
+}
+
+
+.cases-warning-list{
+    width: 1306px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    @{bg}:#ebf0f5;
+    padding-bottom: 46px;
+
+    .title-style{
+        @{fs}:16px;
+        @{lh}:28px;
+        @{fw}:bold;
+        color: #121e3d;
+    }
+
+    .ipt-container{
+        @{pos}:relative;
+        float: right;
+        /deep/.ipt-set-height{
+            width: inherit;
+            float: right;
+            //  设置ipt高度
+            &>input{
+                width: 300px;
+                height: 28px;
+                @{lh}:28px;
+                padding-right: 30px;
+            }
+        }
+        /deep/.btn-search{
+            @{pos}:absolute;
+            right: 1px; top: 0px;
+            width: 28px;
+            height: 28px;
+            @{lh}: 28px;
+            text-align: center;
+            cursor: pointer;
+        }
+    }
+
+    /deep/.el-row-style{
+        padding: 20px 0;
+    }
+    
+    /deep/.btn-set-height{
+        //  设置button高度
+        padding: 0;
+        width: 100px;
+        height: 28px;
+        float: right;
+        margin-left: 10px;
+        @{bg}:#3173bf;
+        border-color: #3173bf;
+    }
+
+    //  修改tab切换样式
+    /deep/.change-tab{
+        .el-tabs__active-bar{
+            height: 0;
+        }
+        .el-tabs__item{
+            @{lh}:26px;
+            height: 26px;
+            padding: 0 20px;
+            &:hover{
+                color: #005ba2;
+            }
+        }
+        .el-tabs__item.is-active{
+            color: #fff;
+            @{bg}: #005ba2;
+            border-radius: 40px;
+        }
+    }
+
+    .change-tab{
+        @{bg}:#eef4f9;
+        .border(1px,#d7dde5);
+
+        /deep/.el-tabs__header {
+            padding: 16px 20px;
+            @{bg}:#f7faff;
+            border-bottom: 1px solid #d7dde5;
+        }
+        /deep/.el-tabs__nav-wrap::after{
+            @{bg}:transparent;
+        }
+        /deep/.el-form-item{
+            margin-bottom: 15px;
+            .el-form-item__label{
+                height: 28px;
+                @{lh}:28px;
+            }
+            .el-form-item__content{
+                @{lh}:28px;
+            }
+        }
+
+        //  table
+        /deep/.el-table th{
+            @{bg}:#eef4f9;
+        }
+        /deep/.el-table td{
+            padding: 22px 0;
+            background: #f7faff;
+        }
+    }
+    //  日期选择器
+    /deep/.date-picker-style{
+        &>input{
+            height: 28px;
+            @{lh}:28px;
+        }
+        .el-input__icon{
+            @{lh}:28px;
+        }
+    }
+
+    //  分页样式
+    /deep/.page-style{
+        float: right;
+    }
+
+    .demo-form-inline{
+        padding-left: 10px;
+        border-bottom: 1px solid #d7dde5;
+    }
+}

@@ -1,0 +1,138 @@
+/*tab切换*/
+.fctab .el-tabs__nav-scroll {
+  padding-left: 0;
+}
+.fctab .el-tabs__content {
+  height: 100%;
+  overflow: hidden;
+}
+.fctab .el-tab-pane {
+  height: 100%;
+}
+.fctab .el-tabs--left, .el-tabs--right {
+  height: 100%;
+}
+.fctab .el-tabs__nav {
+  margin-left: 0;
+}
+.fctab .el-tabs--left .el-tabs__header {
+  height: 100%;
+  border-right: 1px solid #dcdee2;
+  background: #f8f8f9;
+  margin-right: 0;
+}
+.fctab .el-tabs--left.el-tabs--card .el-tabs__nav {
+  border-radius: 0;
+}
+.fctab .el-tabs__item {
+  padding-left: 10px;
+}
+.fctab .el-tabs__item {
+  width: 216px;
+  padding: 0 10px;
+  /*border-bottom: 1px solid #317bdc;*/
+}
+.fctab .el-tabs--left .el-tabs__item {
+  text-align: left;
+}
+.fctab .el-tabs--left.el-tabs--card .el-tabs__item {
+  /*border-top: 1px solid #317bdc;*/
+}
+.fctab .el-tabs--card>.el-tabs__header .el-tabs__nav {
+  border-right: 0;
+  /*border-bottom: 1px solid #317bdc;*/
+  border-left: 0;
+  border-top: 0;
+}
+.fctab .el-tabs--left.el-tabs--card .el-tabs__item {
+  /*border-right: 1px solid #317bdc;*/
+}
+.fctab .el-tabs--left.el-tabs--card .el-tabs__item:first-child {
+  border-top: 0;
+}
+.fctab .el-tabs--card>.el-tabs__header .el-tabs__item.is-closable:hover {
+  padding: 0 10px;
+}
+.fctab .el-tabs--card>.el-tabs__header .el-tabs__item .el-icon-close {
+  display: none;
+}
+.fctab .el-tabs--card>.el-tabs__header .el-tabs__item.is-active.is-closable {
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #ffffff;
+  border-right: 0;
+}
+/*tab 切换中得按钮*/
+.fctab .el-button {
+  width: 32px;
+  height: 18px;
+  font-size: 12px;
+  color: #333333;
+  line-height: 18px;
+  text-align: center;
+  background: #2d8cf0;
+  border: none;
+  color: #ffffff;
+}
+.fctab .cancelbtn {
+  color: #515a6e;
+  background: #ffffff;
+  border: 1px solid #dcdee2;
+}
+.fctab .el-button--mini, .el-button--mini.is-round {
+  padding: 0 2px;
+}
+.fctab .el-button+.el-button {
+  margin-left: 0;
+}
+
+/*时间*/
+.radiobox .el-date-editor .el-range-input {
+  width: 30%;
+}
+.radiobox .el-date-editor .el-range__icon {
+  margin-left: 0;
+}
+.radiobox .el-date-editor.el-input, .radiobox .el-date-editor.el-input__inner {
+  width: 30%;
+  border-radius: 5px;
+  border: 1px solid #dcdee2;
+}
+.radiobox .el-date-editor.el-input, .radiobox .el-date-editor.el-input__inner {
+  height: 26px;
+  /*line-height: 26px;*/
+}
+.radiobox .el-date-editor .el-range-input, .radiobox .el-date-editor .el-range-separator {
+  height: 21px;
+  line-height: 26px;
+}
+.radiobox .el-date-editor .el-range__icon {
+  line-height: 26px;
+}
+.radiobox .el-date-editor .el-range-separator {
+  width: auto;
+}
+.radiobox .el-date-editor .el-range__close-icon {
+  line-height: 26px;
+}
+
+
+/*下拉框*/
+.radiobox .el-input {
+  width: 100%;
+}
+.durationbox .el-input{
+  width: auto;
+}
+.durationbox .el-input--suffix {
+  width: 80px;
+}
+
+/*查询条件*/
+.labelbgc {
+  /*background: #c7edff;*/
+}
+
+.el-color-picker {
+  vertical-align: middle;
+}

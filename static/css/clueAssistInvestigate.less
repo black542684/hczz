@@ -1,0 +1,171 @@
+* {
+    box-sizing: border-box;
+}
+//  定义语法糖
+@bg:background;         //  背景色
+@bc:border-color;       //  边框色
+@pos:position;          //  定位
+@fs:font-size;          //  字号
+@fw:font-weight;        //  字体粗细
+@lh:line-height;        //  行高
+@bs:box-sizing;         //  盒子类型
+@inb:inline-block;      //  行内块
+
+//  定义混合
+.border-right(@w,@c){
+    border-right: @w solid @c;
+}
+.border-bottom(@w,@c){
+    border-bottom: @w solid @c;
+}
+.border-top(@w,@c){
+    border-top: @w solid @c;
+}
+.border-left(@w,@c){
+    border-left: @w solid @c;
+}
+.border(@w,@c){
+    border: @w solid @c;
+}
+
+
+
+
+.xsxc-content{
+    position: relative;
+    width: 1306px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    /* 流程弹框样式 */
+    .process-box{
+        width: 1306px;
+        @{pos}: absolute;
+        top: 70px;left: 0;
+        z-index: 100;
+        @{bs}:border-box;
+
+        .process-border{
+            height: 480px;
+            .border(1px,#3b79c1);
+            @{bg}:#f7faff;
+        }
+    }
+
+    .xsxc-title{
+        @{fs}:16px;
+        @{fw}:bold;
+        color: #121e3d;
+        .border-right(1px,#d7dde5);
+        padding-right: 10px;
+        margin-right: 10px;
+        height: 22px;
+        display: @inb;
+    }
+    .xsxc-back{
+        @{fs}:16px;
+        color: #3173bf;
+    }
+
+    //  修改饿了么布局样式
+    .el-row-style{
+        height:70px;padding: 20px 0;
+    }
+    .el-col-style{
+        padding: 4px 10px;
+    }
+    .el-row-right{
+        text-align: right;
+    }
+
+
+    // .xsxc-title{
+    //     @{fs}:16px;
+    //     @{fw}:bold;
+    //     color:#121e3d;
+    //     padding: 20px 0;
+    // }
+    .xsxc-form-item{
+        border: 1px solid #d7dde5;
+        background: #f7faff;
+        &+.xsxc-form-item{
+            margin-top: 10px;
+        }
+        //  input默认只读样式设置
+        .xsxc-input-only-read{
+            /deep/input{
+                border-color: transparent;
+                background: transparent;
+                cursor: default;
+                padding: 0;
+            }
+            /deep/textarea{
+                border-color: transparent;
+                background: transparent;
+                cursor: default;
+                padding: 0;
+            }
+        }
+        .xsxc-form-title{
+            height: 39px;
+            border-bottom: 1px solid #d7dde5;
+            padding-left: 18px;
+            color: #6b757e;
+            line-height: 39px;
+            font-size: 14px;
+            background: #f1f6ff;
+            margin-bottom: 10px;
+        }
+        /deep/.el-form-item{
+            width: 33%;
+            margin-bottom: 20px;
+            margin-right: 0;
+            /deep/.el-form-item__label{
+                width: 100px;
+                text-align: right;
+            }
+            /deep/input{
+                width: 270px;
+            }
+            .xsxc-quote{
+                position: absolute;
+                right: -40px;
+                top: 8px;
+                height: 28px;
+                line-height: 28px;
+            }
+        }
+        .xsxc-width100{
+            width: 100%;
+            /deep/.el-form-item__content{
+                width: 1138px;
+                /deep/textarea{
+                    resize: none;
+                }
+            }
+        }
+    }
+    //协查信息 - 只读状态下的样式start
+    .xsxc-xcxx-only-read{
+        /deep/input{
+            border-color: transparent;
+            background: transparent;
+            cursor: default;
+            padding: 0;
+        }
+        /deep/textarea{
+            border-color: transparent;
+            background: transparent;
+            cursor: default;
+            padding: 0;
+        }
+        /deep/.el-textarea{
+            display: block;
+            margin-top: 8px;
+        }
+    }
+    //协查信息 - 只读状态下的样式end
+    .xsxc-btn-box{
+        text-align: center;
+        margin: 20px auto;
+    }
+}
