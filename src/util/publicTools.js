@@ -2,6 +2,9 @@
 function uniq(array) {
   var temp = [];
   var _arr = [];
+  // 名字去重
+  if (!array[0].fileName) return _arr = Array.from(new Set(array));
+  // 对象去重
   for (var i = 0; i < array.length; i++) {
     if (temp.indexOf(array[i].fileName) == -1) {
       temp.push(array[i].fileName);

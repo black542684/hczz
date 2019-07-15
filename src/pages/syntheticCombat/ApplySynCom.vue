@@ -76,9 +76,8 @@
               class="form-ipt-style"
               size="small"
               :disabled="isDisable"
-              @keyup.enter="getNumQuery"
+              @blur="getNumQuery"
             ></el-input>
-            <a href="javascript:;" class="btn-quote" @click="getNumQuery">引用</a>
           </el-form-item>
           <el-form-item label="案串名称：" prop="caseSourceName">
             <el-input
@@ -261,14 +260,14 @@
             <div class="origin-file-list">
               <span v-show="jzHzUploadList.length === 0">{{ accessoryPlacrholder }}</span>
               <ul v-show="jzHzUploadList.length !== 0">
-                <li v-for="(item,index) in jzHzUploadList" :key="index">
-                  <span :title="item">{{ item }}</span>
-                  <i class="iconfont iconguanbi2"></i>
+                <li v-for="(item,index) in jzUploadFile" :key="index">
+                  <span :title="item">{{ item.fileName }}</span>
+                  <i class="iconfont iconguanbi2" @click="deleleFile(item, null, 4)"></i>
                 </li>
               </ul>
             </div>
             <div class="origin-upload">
-              <input type="file" multiple @change="hcChange('jz')" :disabled="jzDisable" />
+              <input type="file" multiple @change="uploadFiles($event, 4)" :disabled="jzDisable" />
               <div>上传</div>
             </div>
           </el-form-item>
@@ -320,14 +319,14 @@
             <div class="origin-file-list">
               <span v-show="wzHzUploadList.length === 0">{{ accessoryPlacrholder }}</span>
               <ul v-show="wzHzUploadList.length !== 0">
-                <li v-for="(item,index) in wzHzUploadList" :key="index">
-                  <span :title="item">{{ item }}</span>
-                  <i class="iconfont iconguanbi2"></i>
+                <li v-for="(item,index) in wzUploadFile" :key="index">
+                  <span :title="item">{{ item.fileName }}</span>
+                  <i class="iconfont iconguanbi2" @click="deleleFile(item, null, 5)"></i>
                 </li>
               </ul>
             </div>
             <div class="origin-upload">
-              <input type="file" multiple @change="hcChange('wj')" :disabled="wzDisable" />
+              <input type="file" multiple @change="uploadFiles($event, 5)" :disabled="wzDisable" />
               <div>上传</div>
             </div>
           </el-form-item>
@@ -379,14 +378,14 @@
             <div class="origin-file-list">
               <span v-show="spHzUploadList.length === 0">{{ accessoryPlacrholder }}</span>
               <ul v-show="spHzUploadList.length !== 0">
-                <li v-for="(item,index) in spHzUploadList" :key="index">
-                  <span :title="item">{{ item }}</span>
-                  <i class="iconfont iconguanbi2"></i>
+                <li v-for="(item,index) in spUploadFile" :key="index">
+                  <span :title="item">{{ item.fileName }}</span>
+                  <i class="iconfont iconguanbi2" @click="deleleFile(item, null, 6)"></i>
                 </li>
               </ul>
             </div>
             <div class="origin-upload">
-              <input type="file" multiple @change="hcChange('sp')" :disabled="spDisable" />
+              <input type="file" multiple @change="uploadFiles($event, 6)" :disabled="spDisable" />
               <div>上传</div>
             </div>
           </el-form-item>
@@ -439,17 +438,13 @@ import processNodeSuccess from "../../../static/image/processNodeSuccess.png";
 import UtilService from "../../service/UtilService.js";
 import { connect } from "net";
 import instructRules from '../../util/hczz/hczzManageMixinRule.js'; // 表单校验规则
+import mixinMethods from '../../util/hczz/hczzMixinMethods.js'; // 通用的方法
+import hczzURL from '../../util/url/hczzURL';
 export default {
   name: "applySynCom",
+  mixins: [instructRules, mixinMethods],
   data() {
     return {
-      url: {
-        getListSeriesUrl: "ssSeriesInfoController/listSeriesByNos",
-        uploadUrl: "upload/batch", // 上传文件
-        applyUrl: "hcfight/fightApply",
-        getInformationUrl: "hcfight/cmdDetails",
-        getCurDepUrl: "userApi/"
-      },
       isDisable: false, // 退回禁用状态
       jzDisable: false, // 技侦退回禁用状态
       wzDisable: false, // 网侦退回禁用状态
@@ -718,7 +713,6 @@ export default {
       ]
     };
   },
-  mixins: [instructRules],
   computed: {
     deptType() {
       return this.instructForm.deptType;
@@ -915,337 +909,6 @@ export default {
       }
     });
     graph.read(data);
-  },
-  methods: {
-    // 获取部门
-    getCurDep() {
-      let that = this;
-      let params = {
-        token: this.token
-      };
-      let url = that.url.getCurDepUrl + this.userId;
-      this.$Ajax.get(url, params).then(data => {
-        that.instructForm.createDepName = data.depName;
-      });
-    },
-    // 获取信息数据
-    getInformationData() {
-      let that = this;
-      this.$Ajax.get(that.url.getInformationUrl, that.params).then(data => {
-        that.infos = data.data.cmdDetails;
-        console.warn("是数据啊", data.data);
-        that.instructForm.coprName = that.infos.coprName; // 名称
-        that.instructForm.coprCode = that.infos.coprCode; // 编号
-        that.instructForm.createDepName = that.infos.createDepName; // 发起单位
-        that.instructForm.createName = that.infos.createName; // 发起人
-        that.instructForm.createTime = that.infos.createTime; // 申请时间
-
-        that.instructForm.caseSourceCode = that.infos.caseSourceCode;
-        that.instructForm.caseSourceName = that.infos.caseSourceName;
-        that.instructForm.meansOfCrime = that.infos.meansOfCrime;
-        that.instructForm.caseAmount = that.infos.caseAmount;
-        that.instructForm.judgmentName = that.infos.judgmentName;
-        that.instructForm.caseTypeName = that.infos.caseTypeName;
-        that.instructForm.caseInfo = that.infos.caseInfo;
-        that.instructForm.techEvide = that.infos.techEvide.split(",");
-        that.instructForm.clueFeature = that.infos.clueFeature;
-        if (that.infos.attachments.length > 0) {
-          that.instructForm.originFile = "案源信息附件已上传";
-          that.infos.attachments.forEach(item => {
-            that.originFileList.push(item.fileName);
-            that.attachments.push(item);
-          });
-        }
-        if (that.infos.coprDepts.length > 0) {
-          console.warn('信息数据', data.data);
-          that.infos.coprDepts.forEach(item => {
-            that.instructForm.deptType.push(item.deptType.toString());
-            if (item.deptType == 0) {
-              that.instructForm.jzQueryType = item.queryType;
-              that.instructForm.jzQueryContent = item.queryContent;
-              that.jzId = item.id;
-              if (item.attachments.length > 0) {
-                that.instructForm.jzFile = "技侦附件已上传";
-                item.attachments.forEach(item => {
-                  that.jzHzUploadList.push(item.fileName);
-                  that.jzUploadFile.push(item);
-                });
-              }
-            } else if (item.deptType == 1) {
-              that.instructForm.wzQueryType = item.queryType;
-              that.instructForm.wzQueryContent = item.queryContent;
-              that.wzId = item.id;
-              if (item.attachments.length > 0) {
-                that.instructForm.wzFile = "网侦附件已上传";
-                item.attachments.forEach(item => {
-                  that.wzHzUploadList.push(item.fileName);
-                  that.wzUploadFile.push(item);
-                });
-              }
-            } else if (item.deptType == 2) {
-              that.instructForm.spQueryType = item.queryType;
-              that.instructForm.spQueryContent = item.queryContent;
-              that.spId = item.id;
-              if (item.attachments.length > 0) {
-                that.instructForm.spFile = "视频附件已上传";
-                item.attachments.forEach(item => {
-                  that.spHzUploadList.push(item.fileName);
-                  that.spUploadFile.push(item);
-                });
-              }
-            }
-          });
-        }
-        that.instructForm.createConfirm = that.infos.createConfirm;
-      }).catch(err => console.error(err));
-    },
-    // 提交
-    submit(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.isCoprStatus = "1";
-          this.submitForm();
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    // 提交表单
-    submitForm() {
-      let that = this;
-      that.coprDepts = [];
-      that.instructForm.deptType.forEach(item => {
-        if (item === "0") {
-          that.coprDepts.push({
-            deptType: item,
-            id: that.jzId,
-            queryType: that.instructForm.jzQueryType,
-            queryContent: that.instructForm.jzQueryContent,
-            attachments: that.jzUploadFile
-          });
-        } else if (item === "1") {
-          that.coprDepts.push({
-            deptType: item,
-            id: that.wzId,
-            queryType: that.instructForm.wzQueryType,
-            queryContent: that.instructForm.wzQueryContent,
-            attachments: that.wzUploadFile
-          });
-        } else if (item === "2") {
-          that.coprDepts.push({
-            deptType: item,
-            id: that.spId,
-            queryType: that.instructForm.spQueryType,
-            queryContent: that.instructForm.spQueryContent,
-            attachments: that.spUploadFile
-          });
-        }
-      });
-      let params = {
-        taskId: that.taskId,
-        id: that.params.id,
-        coprStatus: that.coprStatus, // 提交 1 or 草稿 0
-        // 合成信息
-        coprName: that.instructForm.coprName,
-        coprCode: that.instructForm.coprCode,
-        createDepName: that.instructForm.createDepName,
-        createName: that.instructForm.createName,
-        createBy: that.instructForm.createBy,
-        createTime: that.instructForm.createTime,
-
-        // 案源信息
-        caseSourceCode: that.instructForm.caseSourceCode,
-        caseSourceName: that.instructForm.caseSourceName,
-        meansOfCrime: that.instructForm.meansOfCrime,
-        caseAmount: that.instructForm.caseAmount,
-        judgmentName: that.instructForm.judgmentName,
-        caseTypeName: that.instructForm.caseTypeName,
-        caseInfo: that.instructForm.caseInfo,
-        techEvide: that.instructForm.techEvide.join(","),
-        clueFeature: that.instructForm.clueFeature,
-        attachments: that.attachments,
-
-        // 合成信息
-        coprDepts: that.coprDepts,
-
-        // 下发说明
-        createConfirm: that.instructForm.createConfirm
-      };
-      let msg = "提交成功";
-      let failMsg = "提交失败";
-      if (that.isCoprStatus === "0") {
-        msg = "保存草稿成功";
-        failMsg = "保存草稿失败";
-      }
-      console.log("参数", params);
-      this.$Ajax.post(that.url.applyUrl, params, true).then(data => {
-        if (data.data === "success") {
-          that.$message({
-            message: msg,
-            type: "success"
-          });
-          that.$router.push({
-            name: "hczzManage"
-          });
-        } else {
-          that.$message({
-            message: failMsg,
-            type: "warning"
-          });
-        }
-      });
-    },
-    // 保存草稿
-    keepDraft() {
-      if (this.$route.query.statusType === "0") {
-        this.coprStatus = null; // 待办进来时 保存草稿 参数为null
-      }
-      this.isCoprStatus = "0"; // 0 草稿
-      this.submitForm();
-    },
-    // 案源信息附件
-    originChange(e) {
-      let fileList = e.currentTarget.files;
-      let that = this;
-      let formData = new FormData();
-      if (fileList.length === 1) {
-        formData.append("files", fileList[0]);
-        this.originFileList.push(fileList[0].name);
-      } else if (fileList.length > 1) {
-        for (var i = 0; i < fileList.length; i++) {
-          formData.append("files", fileList[i]);
-          this.originFileList.push(fileList[i].name);
-        }
-      }
-      if (fileList !== "") {
-        this.instructForm.originFile = "案源信息附件已上传";
-      }
-      this.$Ajax.form(that.url.uploadUrl, formData).then(data => {
-        console.log("案源信息附件上传", data);
-        if (data.data.length > 0) {
-          data.data.forEach(item => {
-            item.classify = "3";
-            that.attachments.push(item);
-          });
-          // that.attachments = data.data
-        }
-      });
-    },
-    // 合成信息附件
-    hcChange(p) {
-      let event = window.event || arguments.callee.caller.arguments[0];
-      let fileList = event.currentTarget.files;
-      let that = this;
-      let formData = new FormData();
-      if (fileList.length === 1) {
-        formData.append("files", fileList[0]);
-      } else {
-        for (var i = 0; i < fileList.length; i++) {
-          formData.append("files", fileList[i]);
-        }
-      }
-      this.$Ajax.form(that.url.uploadUrl, formData).then(data => {
-        console.log("案源信息附件上传", data);
-        if (data.data.length > 0) {
-          if (p === "jz") {  // 4
-            that.instructForm.jzFile = "技侦附件已上传";    
-            that.jzHzUploadList = [];   // 清空需要展示的名字
-            data.data.forEach(item => {
-              item.classify = "4";
-              that.jzUploadFile.push(item);  // 点击提交的时候需要的数据
-              that.jzHzUploadList.push(item.fileName);// 展示名字
-            });
-          } 
-          else if (p === "wj") {   // 5
-            data.data.forEach(item => {
-              item.classify = "5";
-              that.wzUploadFile.push(item); // 点击提交的时候需要的数据
-            });
-            // that.wzUploadFile = data.data
-            that.instructForm.wzFile = "网侦附件已上传";
-            that.wzHzUploadList = [];
-            that.wzUploadFile.forEach(item => {
-              that.wzHzUploadList.push(item.fileName);// 展示名字
-            });
-          } 
-          else if (p === "sp") {   // 6
-            data.data.forEach(item => {
-              item.classify = "6";
-              that.spUploadFile.push(item);
-            });
-            // that.spUploadFile = data.data
-            that.instructForm.spFile = "视频附件已上传";
-            that.spHzUploadList = [];
-            that.spUploadFile.forEach(item => {
-              that.spHzUploadList.push(item.fileName);// 展示名字
-            });
-          }
-        }
-      });
-    },
-    // 串并编号查询
-    getNumQuery() {
-      let that = this;
-      let caseNum = {
-        seriesNos: that.instructForm.caseSourceCode
-      };
-      let params = {
-        caseNos: that.instructForm.caseSourceCode
-      };
-      if (that.instructForm.caseSourceCode === "") {
-        this.$message({
-          message: "请输入案串编号！",
-          type: "warning"
-        });
-      }
-      this.$Ajax.post(that.url.getListSeriesUrl, caseNum, true).then(data => {
-        console.log("aaaaaaaaaaa", data);
-        if (data.data.length > 0) {
-          that.instructForm.caseSourceName = data.data[0].seriesName;
-          that.instructForm.caseAmount = data.data[0].caseNum;
-          that.disabledFlag = true;
-          that.$message({
-            message: "案串编号引用成功！",
-            type: "success"
-          });
-        } else {
-          this.$Ajax
-            .post("ssSeriesInfoController/listCaseInfoByNos", params, true)
-            .then(res => {
-              console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb", res);
-              this.instructForm.caseAmount = 1;
-              this.instructForm.caseSourceName = res.data[0].case_title;
-              this.instructForm.caseInfo = res.data[0].case_content;
-              this.instructForm.meansOfCrime = res.data[0].crime_method_type;
-              this.instructForm.caseTypeName = res.data[0].case_small_type;
-              this.disabledFlagA = true;
-              this.$message({
-                message: "案串编号引用成功！",
-                type: "success"
-              });
-            })
-            .catch(err => {
-              that.disabledFlag = false;
-              this.disabledFlagA = false;
-              this.instructForm.caseAmount = "";
-              this.instructForm.caseSourceName = "";
-              this.instructForm.caseInfo = "";
-              this.instructForm.meansOfCrime = "";
-              this.instructForm.caseTypeName = "";
-              this.$message({
-                message: "系统未找到对应的串案/案件编号，请手动输入",
-                type: "warning"
-              });
-            });
-        }
-      });
-    },
-    //  查看流程
-    checkProcess() {
-      this.processIsShow = !this.processIsShow;
-      // console.log(this.instructForm)
-    }
   }
 };
 </script>

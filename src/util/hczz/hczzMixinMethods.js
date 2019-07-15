@@ -4,6 +4,14 @@ import uploading from './hczzUploadName.js';  // 这个是控制 技侦，网侦
 // 合成作战中的通用方法
 export default {
   methods: {
+    // 获取部门
+    getCurDep() {
+      let params = { token: this.token };
+      let url = hczzURL.getCurDep + this.userId;
+      this.$Ajax.get(url, params).then(data => {
+        this.instructForm.createDepName = data.depName;
+      });
+    },
     // 获取信息数据
     async getInformationData() {
       let data = await this.$Ajax.get(hczzURL.getInformation, this.params);
@@ -119,7 +127,7 @@ export default {
         // 合成信息
         coprDepts: this.coprDepts,
       };
-      params = {...params,...hat.instructForm};
+      params = {...params,...this.instructForm};
       params.techEvide = this.instructForm.techEvide.join(",");
       let msg = "提交成功";
       let failMsg = "提交失败";
@@ -153,31 +161,117 @@ export default {
       this.isCoprStatus = "0"; // 0 草稿
       this.submitForm();
     },
+    // 串并编号查询
+    async getNumQuery() {
+      let caseSourceCode = this.instructForm.caseSourceCode;
+      if (caseSourceCode === "") {
+        this.$message({
+          message: "请输入案串编号！",
+          type: "warning"
+        });
+      }
+      let data = await this.$Ajax.post(hczzURL.getListSeries, {seriesNos: caseSourceCode}, true);
+      console.log("aaaaaaaaaaa", data);
+      if (data.data.length > 0) {
+        // 如果有对应的案串编号
+        this.instructForm.caseSourceName = data.data[0].seriesName;
+        this.instructForm.caseAmount = data.data[0].caseNum;
+        this.disabledFlag = true; // 案串名称，数量，变成不可编辑
+        this.$message({
+          message: "案串编号引用成功！",
+          type: "success"
+        });
+      } else {
+        // 如果没有对应的编号，则向另外一个接口查找
+        this.$Ajax
+          .post("ssSeriesInfoController/listCaseInfoByNos", {caseNos: caseSourceCode}, true)
+          .then(res => {
+            console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb", res);
+            this.instructForm.caseAmount = 1;
+            this.instructForm.caseSourceName = res.data[0].case_title;
+            this.instructForm.caseInfo = res.data[0].case_content;
+            this.instructForm.meansOfCrime = res.data[0].crime_method_type;
+            this.instructForm.caseTypeName = res.data[0].case_small_type;
+            this.disabledFlagA = true;
+            this.$message({
+              message: "案串编号引用成功！",
+              type: "success"
+            });
+          })
+          .catch(err => {
+            this.disabledFlag = false;
+            this.disabledFlagA = false;
+            this.instructForm.caseAmount = "";
+            this.instructForm.caseSourceName = "";
+            this.instructForm.caseInfo = "";
+            this.instructForm.meansOfCrime = "";
+            this.instructForm.caseTypeName = "";
+            this.$message({
+              message: "系统未找到对应的串案/案件编号，请手动输入",
+              type: "warning"
+            });
+          });
+      }
+    },
+    //  查看流程
+    checkProcess() {
+      this.processIsShow = !this.processIsShow;
+      // console.log(this.instructForm)
+    },
+    // 案源信息附件
+    originChange(e) {
+      let fileList = e.currentTarget.files;
+      let formData = new FormData();
+      for (var i = 0; i < fileList.length; i++) {
+        formData.append("files", fileList[i]);
+        this.originFileList.push(fileList[i].name);  // 文件名字
+      }
+      if (fileList !== "") {
+        this.instructForm.originFile = "案源信息附件已上传";
+      }
+      this.$Ajax.form(this.url.uploadUrl, formData).then(data => {
+        console.log("案源信息附件上传", data);
+        if (data.data.length > 0) {
+          data.data.forEach(item => {
+            item.classify = "3";
+            this.attachments.push(item);  // 文件附加列表
+          });
+        }
+      });
+      console.log('安源信息', this.originFileList);
+      // 数组去重
+      this.originFileList = uniq(this.originFileList);  // 展示的名字
+      this.attachments = uniq(this.attachments); // 提交表单需要的数据
+    },
     //  文件上传
     async uploadFiles(e,num) {
       let fileList = e.currentTarget.files;
       let formData = new FormData();
-      
+      console.log('上传事件执行了');
       for (var i = 0; i < fileList.length; i++) {
         formData.append("files", fileList[i]);
       }
       // 上传文件接口
-      let data = await this.$Ajax.form(`upload/batch?classify=${num}`, formData);
+      let data = await this.$Ajax.form(`${hczzURL.upload}?classify=${num}`, formData);
       this.instructForm[uploading[num][0]] = uploading[num][1];  // 提示信息
+      console.warn('文件上传', data);
       if (data.data.length > 0) {
         data.data.forEach(item => {
-          //item.classify = "9";
           this[uploading[num][2]].push(item); // 提交表单需要的数据
           this[uploading[num][3]].push(item.fileName);  // 展示的名字
         });
       }
+      
       // 数组去重
       this[uploading[num][3]] = uniq(this[uploading[num][3]]);  // 展示的名字
+      this[uploading[num][2]] = uniq(this[uploading[num][2]]); // 提交表单需要的数据
+      console.log('上传文件的名字', this[uploading[num][3]], uploading[num][3]);
     },
     // 删除文件
     deleleFile(item, child, num) {
       // 1:item 用来获取需要删除的文件ID  和名字    2:child  是input标签DOM元素  3: num控制技侦，网侦，视频    
       let params = {id: item.id};
+      
       this.$confirm("此操作将删除附件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -202,20 +296,20 @@ export default {
             this.$message({ message: "附件删除失败", type: "warning" });
           }
 
-          this.originFileList.forEach((ele, index) => {  // 删除列表中展示的那条数据
+          this[uploading[num][3]].forEach((ele, index) => {  // 删除列表中展示文件名
+            if (ele === item.fileName) {
+              this[uploading[num][3]].splice(index, 1);
+            }
+          });
+          console.log('删除事件', item.fileName)
+
+          this[uploading[num][2]].forEach((ele, index) => { // 删除需要提交的数据列表中的那条数据
             if (ele.id === item.id) {
-              this.originFileList.splice(index, 1);
+              this[uploading[num][2]].splice(index, 1);
             }
           });
 
-          this.ayData.attachments.forEach((ele, index) => { // 删除需要提交的数据列表中的那条数据
-            if (ele.id === item.id) {
-              this.ayData.attachments.splice(index, 1);
-            }
-          });
-
-          child.value = ""; //..上传input的value置空
-
+          // child.value = ""; //..上传input的value置空
           this.$message({
             message: "附件删除成功",
             type: "success"
