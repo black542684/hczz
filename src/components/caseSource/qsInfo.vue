@@ -5,13 +5,13 @@
         <div class="xsxc-form-title">签收结果</div>
         <div class="approve-list" v-for="(item,index) in qsjgList" :key="index">
           <el-form-item label="签收单位：">
-            <div>{{ item.hParam.depName }}</div>
+            <div>{{ item.depName }}</div>
           </el-form-item>
           <el-form-item label="签收人：">
-            <p class="success-result">{{ item.hParam.createName }}</p>
+            <p class="success-result">{{ item.createName }}</p>
           </el-form-item>
           <el-form-item label="签收时间：">
-            <div>{{ item.hParam.date }}</div>
+            <div>{{ item.date }}</div>
           </el-form-item>
         </div>
       </div>

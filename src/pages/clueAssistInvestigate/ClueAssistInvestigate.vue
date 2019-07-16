@@ -33,32 +33,36 @@
 
     <!-- 申请 基本信息 组件 -->
     <!-- 1.能否编辑; 2.表单数据; 3.title名称列表; 4.设置DOM名称用于表单验证; -->
-    <sqComp :sqIsRead="sqIsRead" :ayData="ayData" :titleList01="titleList01" ref="sqCom" />
+    <sqComp 
+    v-if="componentsController['xsxc_fqsq'].show" 
+    :sqIsRead="componentsController['xsxc_fqsq'].edit" 
+    :ayData="ayData" 
+    ref="sqCom" />
 
     <!-- 申请 线索协查信息 组件 -->
     <!-- 1.能否编辑; 2.表单数据; 3.上传文件; 4.文件上传方法; 5.文件删除方法; 6.title名称列表; 7.设置DOM名称用于表单验证; -->
     <sqComp2
-      :sqIsRead="sqIsRead"
+      v-if="componentsController['xsxc_fqsq'].show"
+      :sqIsRead="componentsController['xsxc_fqsq'].edit"
       :ayData="ayData"
       :originFileList="originFileList"
       :uploadFiles="uploadFiles"
       :deleleFile="deleleFile"
-      :titleList02="titleList02"
       :yySuccess1="yySuccess1"
       :yySuccess2="yySuccess2"
       ref="sqCom2"
     />
-
-    <el-form :inline="true" :model="ayData" :rules="ayRules" v-if="!sqIsRead" ref="sqComLocal">
-      <div class="xsxc-form-item" :class="{'xsxc-xcxx-only-read':sqIsRead}">
+    <!-- 申请页面才会展示 -->
+    <el-form :inline="true" :model="ayData" :rules="ayRules" v-if="componentsController['xsxc_fqsq'].edit" ref="sqComLocal">
+      <div class="xsxc-form-item" :class="{'xsxc-xcxx-only-read':!componentsController['xsxc_fqsq'].edit}">
         <div class="xsxc-form-title">提交审核</div>
-        <el-form-item label="协查级别：" prop="level" v-if="!sqIsRead">
+        <el-form-item label="协查级别：" prop="level" v-if="componentsController['xsxc_fqsq'].edit">
           <el-radio-group v-model="ayData.level">
             <el-radio label="区县" @change="chooseLevel"></el-radio>
             <el-radio label="市局" @change="chooseLevel"></el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="查询单位：" prop="cxdw" v-if="!sqIsRead">
+        <el-form-item label="查询单位：" prop="cxdw" v-if="componentsController['xsxc_fqsq'].edit">
           <el-select v-model="ayData.cxdw" placeholder="请选择查询单位" v-if="!cxdwStatus" size="small">
             <el-option
               :key="item.id"
@@ -70,7 +74,7 @@
           <div style="width:150px;" v-if="cxdwStatus">{{ayData.cxdw}}</div>
         </el-form-item>
         <el-form-item label="提请需求：" prop="applyDesc" class="xsxc-width100">
-          <el-input type="textarea" v-model="ayData.applyDesc" autosize :readonly="sqIsRead"></el-input>
+          <el-input type="textarea" v-model="ayData.applyDesc" autosize :readonly="!componentsController['xsxc_fqsq'].edit"></el-input>
         </el-form-item>
       </div>
     </el-form>
@@ -80,17 +84,27 @@
     <shInfoxsxc :approveList="approveList" />
 
     <!-- 区县反馈信息 - 组件 -->
-    <qxfkInfoxsxc :fkInfoList="fkInfoList" :fkFJInfoList="fkFJInfoList" />
+    <qxfkInfoxsxc v-if="!componentsController['xsxc_xzqxfk'].edit" :fkInfoList="fkInfoList" :fkFJInfoList="fkFJInfoList" />
 
     <!-- 市局反馈信息 - 组件 -->
-    <sjfkInfoxsxc :sjfkInfoList="sjfkInfoList" :sjfkFJInfoList="sjfkFJInfoList" />
+    <sjfkInfoxsxc v-if="componentsController['xsxc_sjjgfk'].show" :sjfkInfoList="sjfkInfoList" :sjfkFJInfoList="sjfkFJInfoList" />
 
-    <!-- 当前审核人及审核意见 -->
-    <!-- <shyjInfo :shData='shData' :newTaskId='newTaskId' v-if='sjypyspBtn'/> -->
-    <qxspInfo 
-    :shData="shData" 
-    :newTaskId="newTaskId" 
-    v-if="sjypyspBtn"/>
+
+    <!-- 协作区县接收 -->
+    <qxspInfo :shData="shData" v-if="componentShowOrHide('xsxc_xzqxjs')" :newTaskId="newTaskId" :title="'xsxc_xzqxjs'"/>
+    <!-- 市局接收 -->
+    <qxspInfo :shData="shData" v-if="componentShowOrHide('xsxc_sjjs')" :newTaskId="newTaskId" :title="'xsxc_sjjs'"/>
+    <!-- 发起区县审批 -->
+    <qxspInfo :shData="shData" v-if="componentShowOrHide('xsxc_fqqxsp')" :newTaskId="newTaskId" :title="'xsxc_fqqxsp'"/>
+    <!-- 协作区县审批 -->
+    <qxspInfo :shData="shData" v-if="componentShowOrHide('xsxc_xzqxsp')" :newTaskId="newTaskId" :title="'xsxc_xzqxsp'"/>
+    <!-- 市级部门审批 -->
+    <qxspInfo :shData="shData" v-if="componentShowOrHide('xsxc_sjbmsp')" :newTaskId="newTaskId" :title="'xsxc_sjbmsp'"/>
+    <!-- 市局结果反馈 -->
+    <qxspInfo :shData="shData" v-if="componentShowOrHide('xsxc_sjjgfk')" :newTaskId="newTaskId" :title="'xsxc_sjjgfk'"/>
+    <!-- 协作区县反馈 -->
+    <qxspInfo :shData="shData" v-if="componentShowOrHide('xsxc_xzqxfk')" :newTaskId="newTaskId" :title="'xsxc_xzqxfk'"/>
+
 
     <!-- 申请按钮 -->
     <div class="xsxc-btn-box" v-if="sqBtn">
@@ -104,7 +118,7 @@
     </div>
 
     <!-- 签收结果 -->
-    <qsInfo :qsjgList="qsjgList" />
+    <qsInfo :qsjgList="qsjgList"/>
   </div>
 </template>
 
@@ -119,9 +133,10 @@ import qxspInfo from "../../components/clueAssist/qxspInfo"; //  引入区县审
 import shInfoxsxc from "../../components/clueAssist/shInfoxsxc"; //  引入审核流转历史信息组件
 import qxfkInfoxsxc from "../../components/clueAssist/fkInfoxsxc"; //  引入反馈信息组件
 import sjfkInfoxsxc from "../../components/clueAssist/fkInfoxsxcSJ"; //  引入反馈信息组件
+
 import moment from "moment"; // 时间格式化
-import { uniq, deepCopy } from '../../util/publicTools.js';  // 工具函数导入,和验证规则,对象深拷贝
-import { myData, titleList01, titleList02 } from '../../util/publicObject.js'; // 引入需要的applyData,里面的字段是固定的，以后可能需要继续使用
+import { uniq, deepCopy, getSameArray } from '../../util/publicTools.js';  // 工具函数导入,和验证规则,对象深拷贝
+import { myData } from '../../util/publicObject.js'; // 引入需要的applyData,里面的字段是固定的，以后可能需要继续使用
 import ayRules from '../../util/mixinRules.js'; //校验规则
 import ayData from '../../util/mixinAyData.js';  // 案源数据
 import publicMethods from '../../util/mixinPublicMethods.js'; // 一些公用的方法
@@ -141,13 +156,49 @@ export default {
   mixins: [ayRules, ayData, publicMethods],
   data() {
     return {
-      //  title名称动态数据 - 基本信息
-      titleList01,
-      //  title名称动态数据 - 线索协查信息
-      titleList02,
+      // 流程控制，角色权限
+      getFeatures: [],
+      // 组件控制器,默认都是不可见且只读
+      componentsController: {  
+        xsxc_fqsq: {  //（控制sqComp,   和sqComp2）
+          show: true,
+          edit: true
+        }, 
+        xsxc_fqqxsp: {
+          show: false,
+          edit: false
+        }, 
+        xsxc_xzqxsp: {
+          show: false,
+          edit: false
+        }, 
+        xsxc_xzqxjs: {
+          show: false,
+          edit: false
+        }, 
+        xsxc_xzqxfk: {
+          show: false,
+          edit: false
+        }, 
+        xsxc_sjbmsp: {
+          show: false,
+          edit: false
+        }, 
+        xsxc_sjjs: {
+          show: false,
+          edit: false
+        }, 
+        xsxc_sjjgfk: {
+          show: false,
+          edit: false
+        }, 
+        xsxc_jgjs: {
+          show: false,
+          edit: false
+        },
+      }
     };
   },
-
   async created() {
     this.bkID = this.$route.query.id;
     this.procInstId = this.$route.query.procInstId;
@@ -172,6 +223,7 @@ export default {
     let res = await this.$Ajax.get('permissionApi/getFeatures?appCode=hczz').catch(err => console.log(err));
     let arr = res.map(item => item.code);
     console.warn('获取用户取交集', arr);
+    this.getFeatures = arr;  // 控制角色流程
   },
   mounted() {
     //    获取当前时间，赋值给申请时间
@@ -193,9 +245,13 @@ export default {
     }
   },
   methods: {
+    //判断方法，通过传入的数据判断组件显示隐藏
+    componentShowOrHide(value){
+      return this.componentsController[value].show && this.componentsController[value].edit;
+    },
     //  协查级别
     chooseLevel(label) {
-      console.warn('显示label', label);
+      
       if (label === "区县") {
         this.cxdwStatus = false;
         this.ayData.cxdw = "";
@@ -273,7 +329,7 @@ export default {
       }
       
       console.warn(applyData);
-      console.warn('打印num', num);
+      
 			this.$Ajax.post('clue/invApply', applyData, true).then(res => {
 				const lcData = {
 					createBy:this.createBy,
@@ -289,7 +345,7 @@ export default {
             date: moment().format("YYYY-MM-DD HH:mm:ss")
 					}
         }
-        console.warn(lcData);
+        
         if (num !== 1) return this.$router.push({name: "clueAssistManage"});
 				this.$Ajax.post('flow/submitFlow', lcData, true).then(res=>{
 					if (res.data === "success") {
@@ -319,7 +375,7 @@ export default {
         this.ayData.createDepName = parentID.depName; //  获取申请单位
         //this.$set(this.ayData, 'createDepName', parentID.depName);
         this.depId = parentID.depId; // 获取部门ID
-        console.warn('部门', this.ayData);
+        
         // 获取父级部门
         let url02 = "orgApi/getParentDeps/" + parentID.depId;
         this.$Ajax.get(url02, { token: this.token }, true).then(res => {
@@ -339,7 +395,6 @@ export default {
                 true
               )
               .then(res => {
-                console.log('getUsersByOrgIdAndRoleId第一个', res, this.depId, this.roleId);
                 this.ayData.userList = res.join(",");
               });
           });
@@ -370,7 +425,6 @@ export default {
           { orgId: this.queryUnitBy, roleId: this.roleId },
           true
         );
-        console.log('getUsersByOrgIdAndRoleId第二个', user, this.queryUnitBy, this.roleId);
         this.shData.userLi = user.join(",");
 
       } catch (err) {
@@ -413,11 +467,32 @@ export default {
       this.shData.statusIdNew = taskList && taskList.length !== 0
         ? taskList[0].statusId
         : "";
-      console.log("申请人是：", this.shData.sqr);
-      
+      console.warn("权限是：", res.data);
+      // 取交集之前
+      let historyFormProps = res.data.historyFormProps;  // 走过的流程(只读)
+      let formProps = [];  // 可编辑的流程
+      res.data.taskList && res.data.taskList.map(item => {
+        item.formProps.map(item => formProps.push(item));
+      })
+      // 取交集之后
+      historyFormProps = getSameArray(this.getFeatures, historyFormProps);
+      formProps = getSameArray(this.getFeatures, formProps);
+      console.log('historyFormProps', historyFormProps);
+      console.log('formProps', formProps);
+
+      historyFormProps.map(item => { // 可看不可编辑
+        this.componentsController[item].show = true;
+        this.componentsController[item].edit = false;
+      })
+      formProps.map(item => {  // 可看又可编辑
+        this.componentsController[item].show = true;
+        this.componentsController[item].edit = true;
+      })
+      console.warn('是否编辑状态', this.componentsController['xsxc_fqsq'].edit)
       // 判断如果是申请页面则没有这个数据
       let details = res.data.details;
       let activitiInfoList = res.data.activitiInfoList;
+
       if (details) {
         //  审核数据
         this.shData.sqr = details.createBy;
@@ -438,6 +513,7 @@ export default {
       }
       
       // TODO:  控制编辑只读状态
+      // 控制 sqComp2
       if (activitiInfoList) {
         //  activitiInfoList为空，线索协查申请页面
         this.sqIsRead = true;
@@ -448,53 +524,21 @@ export default {
         this.sqIsRead = false;
         this.yySuccess1 = false;
         this.yySuccess2 = false;
-      }
+      } 
       this.getUserList02();
-      console.warn('获取详情数据：', res.data.activitiInfoList.data);
       /* 循环开始---------------------------------- */
-      
+      let signFor = { jgjs:'qsjgList',  xzqxfk: 'fkInfoList', sjjgfk: 'sjfkInfoList'};
       activitiInfoList.data.forEach(item => {
-        if (
-          (item.endTime !== null) &&
-          (item.hParam.result !== undefined) &&
-          (item.hParam.result !== "退回") &&
-          //  区县接收内容不显示
-          (item.taskDefinitionKey != "xzqxjs") &&
-          //  市级接收内容不显示
-          (item.taskDefinitionKey != "sjjs") &&
-          //  区县反馈
-          (item.taskDefinitionKey != "xzqxfk") &&
-          //  市局反馈
-          (item.taskDefinitionKey != "sjjgfk")
-        ) 
-        {
-          this.approveList.push(item.hParam);
-        }
+        // 原来的方法放在组件里
         //  获取签收结果数据
-        if (
-          item.hParam.date &&
-          item.hParam.depName &&
-          item.taskDefinitionKey == "jgjs"
-          ) 
-        {
-          this.qsjgList.push(item);
-        }
-        //  反馈
-        if (
-          (item.endTime !== null) &
-          (item.hParam.result !== undefined) &
-          (item.taskDefinitionKey == "xzqxfk")
-        ) {
-          this.fkInfoList.push(item.hParam);
-        }
-        if (
-          (item.endTime !== null) &
-          (item.hParam.result !== undefined) &
-          (item.taskDefinitionKey == "sjjgfk")
-        ) {
-          this.sjfkInfoList.push(item.hParam);
+        let key = item.taskDefinitionKey;
+        console.log('循环的结果是：', signFor[key], item);
+        if (signFor[key] && item.endTime) {
+          this[signFor[key]].push(item.hParam);
         }
       });
+
+      this.approveList = activitiInfoList.data;
       /* 循环结束----------------------------------- */
       //  获取退回结果数据
       if (res.data.taskList) {
@@ -509,7 +553,7 @@ export default {
       //  控制按钮显示
       //  只有待办才显示
       //  获取当前页面状态   0待办；1发起；2已办
-      console.log('获取当前页面状态:', statusType)
+      
       if (statusType) {
         /* 发起草稿状态 */
         if (statusType === "1" && this.$route.query.statusStr === "草稿") {
@@ -569,7 +613,6 @@ export default {
             switch(formProps){
               case "review_info":
                 //  审核编辑框显示与否
-                this.shxxEditIsShow = true;
                 this.changeTitle = "线索协查审核";
               break;
               case "submit_review_btn":
@@ -589,8 +632,8 @@ export default {
                 this.ayData.techEvide = details.techEvide.split(","); //..串并依据
                 this.originFileList = this.ayData.fileList; //  已经上传的文件渲染出来,展示名称
                 this.ayData.attachments = details.attachments; //  已经上传的文件保存给后台
-                this.sqIsRead = false; //  切换为编辑状态
                 this.sqBtn = true; //  显示申请按钮
+                this.sqIsRead = false; //  切换为编辑状态
                 this.yySuccess1 = false;  // 案件名称设置为可编辑状态
                 this.yySuccess2 = false;  // 作案手段设置为可编辑状态
                 if (details.unitType == 0) {
@@ -702,7 +745,7 @@ export default {
           }
         }
       }
-      console.warn('申请数据结束', this.ayData);
+      // console.warn('申请数据结束', this.ayData);
     },
     //  发起人确认页面 - 确认按钮
     qrSubmit() {
@@ -732,7 +775,7 @@ export default {
         }
       };
       this.$Ajax.post("flow/submitFlow", lcData, true).then(res => {
-        console.warn(res);
+        // console.warn(res);
         if (res.data === "success") {
           this.$message({
             message: successMsg,

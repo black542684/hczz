@@ -1,11 +1,11 @@
 <template>
   <div style="margin-bottom:10px;">
     <el-form :inline="true" :model="ayData" :rules="ayRules" ref="ayForm">
-      <div :class="{'xsxc-xcxx-only-read':sqIsRead}">
+      <div :class="{'xsxc-xcxx-only-read':!sqIsRead}">
         <div class="xsxc-form-item">
           <div class="xsxc-form-title">{{titleList01.formName}}</div>
           <el-form-item :label="titleList01.name" prop="name">
-            <el-input v-model="ayData.name" placeholder size="small" :readonly="sqIsRead"></el-input>
+            <el-input v-model="ayData.name" placeholder size="small" :readonly="!sqIsRead"></el-input>
           </el-form-item>
           <el-form-item :label="titleList01.number">
             <el-input
@@ -43,7 +43,7 @@
               readonly="readonly"
             ></el-input>
           </el-form-item>
-          <el-form-item v-if="sqIsRead" label="提请需求：" class="xsxc-width100">
+          <el-form-item v-if="!sqIsRead" label="提请需求：" class="xsxc-width100">
             <el-input
               type="textarea"
               v-model="ayData.applyDesc"
@@ -60,8 +60,9 @@
 
 <script>
 import ayRules from '../../util/mixinRules.js'; //校验规则
+import { titleList01 } from '../../util/publicObject.js'; // 设置标题变量
 export default {
-  props: ["sqIsRead", "ayData", "titleList01"],
+  props: ["sqIsRead", "ayData"],
   mixins: [ayRules],
   data() {
     return {
@@ -70,7 +71,8 @@ export default {
       bkID: "",
       createBy: "",
       taskId: "",
-      ayRules
+      ayRules,
+      titleList01
     };
   },
   created() {

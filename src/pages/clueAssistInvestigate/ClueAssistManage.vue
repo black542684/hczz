@@ -154,7 +154,6 @@ export default {
     },
     // 获取列表数据
     async getListData() {
-      
       if (this.createTime) {
         this.params.createTime = UtilService.formatDuring(this.createTime.getTime(), 'yyyy-MM-dd')
       } else {

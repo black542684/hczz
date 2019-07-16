@@ -1,7 +1,7 @@
 <template>
   <div style="margin-bottom:10px;">
     <el-form :inline="true" :model="ayData" :rules="ayRules" ref="ayForm">
-      <div :class="{'xsxc-xcxx-only-read':sqIsRead}">
+      <div :class="{'xsxc-xcxx-only-read':!sqIsRead}">
         <div class="xsxc-form-item">
           <div class="xsxc-form-title">{{titleList02.formName}}</div>
           <el-form-item :label="titleList02.number" prop="caseSourceCode">
@@ -9,7 +9,7 @@
               v-model="ayData.caseSourceCode"
               placeholder
               size="small"
-              :readonly="sqIsRead"
+              :readonly="!sqIsRead"
               @blur="reference"
             ></el-input>
           </el-form-item>
@@ -41,7 +41,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item label="研判人员：" prop="judgmentName">
-            <el-input v-model="ayData.judgmentName" placeholder size="small" :readonly="sqIsRead"></el-input>
+            <el-input v-model="ayData.judgmentName" placeholder size="small" :readonly="!sqIsRead"></el-input>
           </el-form-item>
           <el-form-item label="案件类别：" prop="caseTypeName">
             <el-select v-model="ayData.caseTypeName" placeholder="请选择案件类别" size="small" v-if="!yySuccess2">
@@ -53,20 +53,20 @@
             <div style="width:150px;" v-if="yySuccess2">{{ayData.caseTypeName}}</div>
           </el-form-item>
           <el-form-item label="简要案情：" prop="caseInfo" class="xsxc-width100">
-            <el-input type="textarea" v-model="ayData.caseInfo" autosize :readonly="sqIsRead"></el-input>
+            <el-input type="textarea" v-model="ayData.caseInfo" autosize :readonly="!sqIsRead"></el-input>
           </el-form-item>
           <el-form-item label="串并依据：" prop="techEvide" class="xsxc-width100">
-            <el-checkbox-group v-model="ayData.techEvide" v-if="!sqIsRead">
+            <el-checkbox-group v-model="ayData.techEvide" v-if="sqIsRead">
               <el-checkbox label="DNA"></el-checkbox>
               <el-checkbox label="指纹"></el-checkbox>
               <el-checkbox label="视频"></el-checkbox>
               <el-checkbox label="足迹"></el-checkbox>
               <el-checkbox label="其他"></el-checkbox>
             </el-checkbox-group>
-            <span v-if="sqIsRead">{{ayData.techEvide}}</span>
+            <span v-if="!sqIsRead">{{ayData.techEvide}}</span>
           </el-form-item>
           <el-form-item label="线索特征：" prop="clueFeature" class="xsxc-width100">
-            <el-input type="textarea" v-model="ayData.clueFeature" autosize :readonly="sqIsRead"></el-input>
+            <el-input type="textarea" v-model="ayData.clueFeature" autosize :readonly="!sqIsRead"></el-input>
           </el-form-item>
           <el-form-item label="附件：" style="width: auto;margin-right: 10px;" prop="originFile">
             <div class="origin-upload">
@@ -76,14 +76,14 @@
                 multiple
                 @change="uploadFiles($event, 10)"
                 ref="uploadFiles"
-                v-if="!sqIsRead"
+                v-if="sqIsRead"
               />
-              <el-button type="primary" size="mini" v-if="!sqIsRead">上传</el-button>
+              <el-button type="primary" size="mini" v-if="sqIsRead">上传</el-button>
               <el-input v-show="false" v-model="ayData.originFile"></el-input>
             </div>
             <template v-for="(item,index) in ayData.fileList">
               <a
-                v-if="sqIsRead"
+                v-if="!sqIsRead"
                 :key="index"
                 style="margin-right:10px;color:#409EFF;"
                 :href="item.fileVisitPath"
@@ -117,6 +117,7 @@
 
 <script>
 import ayRules from '../../util/mixinRules.js'; // 校验规则
+import { titleList02 } from '../../util/publicObject.js';  // 标题名字
 export default {
   props: [
     "sqIsRead",
@@ -124,7 +125,6 @@ export default {
     "originFileList",
     "uploadFiles",
     "deleleFile",
-    "titleList02",
     "yySuccess1",
     "yySuccess2"
   ],
@@ -137,6 +137,7 @@ export default {
       bkID: "",
       createBy: "",
       taskId: "",
+      titleList02
     };
   },
   created() {
@@ -158,7 +159,7 @@ export default {
           type: "warning"
         });
       }
-      if (!this.sqIsRead) {
+      if (this.sqIsRead) {
         this.$Ajax
           .post("ssSeriesInfoController/listSeriesByNos", {seriesNos: caseSourceCode}, true)
           .then(res => {

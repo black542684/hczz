@@ -3,7 +3,7 @@ function uniq(array) {
   var temp = [];
   var _arr = [];
   // 名字去重
-  if (!array[0].fileName) return _arr = Array.from(new Set(array));
+  if (typeof array[0] ===  'string') return _arr = Array.from(new Set(array));
   // 对象去重
   for (var i = 0; i < array.length; i++) {
     if (temp.indexOf(array[i].fileName) == -1) {
@@ -112,4 +112,4 @@ function deepCopy(obj) {
   return result;
 }
 
-export { uniq, ayRules, deepCopy };
+export { uniq, ayRules, deepCopy, getSameArray };

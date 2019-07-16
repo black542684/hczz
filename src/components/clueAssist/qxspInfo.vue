@@ -5,13 +5,13 @@
       :inline="true"
       :model="shData"
       :rules="shRules"
-      v-show="shData.xzqxjsBtn"
+      v-show="!(title==='xsxc_xzqxjs' || title==='xsxc_sjjs')"
       ref="shForm"
     >
       <div>
         <div class="xsxc-form-item">
           <div class="xsxc-form-title">{{isShenhe}}信息</div>
-          <template v-if="shData.setFkHide">
+          <template v-if="!(title==='xsxc_xzqxfk' || title==='xsxc_sjjgfk')">
             <el-form-item :label="isShenhe03">
               <el-input
                 v-model="shData.shr"
@@ -22,13 +22,13 @@
               ></el-input>
             </el-form-item>
 
-            <el-form-item :label="isShenhe02" v-if="!shData.backIsShow">
+            <el-form-item :label="isShenhe02" v-if="flag">
               <el-radio-group v-model="shData.shjg">
                 <el-radio label="通过" @change="shResultFn"></el-radio>
                 <el-radio label="退回" @change="shResultFn"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item :label="isShenhe02" v-if="shData.backIsShow">通过</el-form-item>
+            <el-form-item :label="isShenhe02" v-if="!flag">通过</el-form-item>
           </template>
 
           <el-form-item :label="shData.shyjLabel" prop="shyj" class="xsxc-width100">
@@ -39,7 +39,7 @@
             label="附件："
             style="width: auto;margin-right: 10px;"
             prop="originFile"
-            v-if="shData.showUpload"
+            v-if="title ==='xsxc_sjjgfk' || title==='xsxc_xzqxfk'"
           >
             <div class="origin-upload">
               <input
@@ -76,9 +76,9 @@
     </el-form>
 
     <!-- 审核按钮 -->
-    <div class="xsxc-btn-box" v-if="!shData.btnSecShow">
+    <div class="xsxc-btn-box" v-if="!(title === 'xsxc_xzqxjs' || title==='xsxc_xzqxfk')">
       <template v-if="shBtnShow">
-        <el-button type="primary" size="mini" @click="shSubmit('shForm',0,null)">{{title}}</el-button>
+        <el-button type="primary" size="mini" @click="shSubmit('shForm',0,null)">{{title002}}</el-button>
       </template>
       <template v-if="!shBtnShow">
         <el-button type="warning" size="mini" @click="shSubmit('shForm',1,null)">退回给申请人</el-button>
@@ -86,14 +86,14 @@
     </div>
 
     <!-- 流转市局 -->
-    <div class="xsxc-btn-box" v-if="shData.btnSecShow">
+    <div class="xsxc-btn-box" v-if="title === 'xsxc_xzqxjs' || title==='xsxc_xzqxfk'">
       <template>
         <el-button type="primary" size="mini" @click="shSubmit('shForm',0,0)">{{title003}}</el-button>
       </template>
       <template>
         <el-button
           type="warning"
-          v-if="shData.sjjsBtn02"
+          v-if="title !== 'xsxc_sjjs'"
           size="mini"
           @click="shSubmit02('shForm',0,1)"
         >提交市局协查</el-button>
@@ -107,7 +107,7 @@ import moment from "moment"; // 时间格式化
 import { uniq } from '../../util/publicTools.js';  // 数组去重方法
 import publicMethods from '../../util/mixinPublicMethods.js'; // 一些公用的方法
 export default {
-  props: ["shData", "newTaskId"],
+  props: ["shData", "newTaskId", "title"],
   mixins: [publicMethods],
   data() {
     return {
@@ -127,7 +127,7 @@ export default {
       },
       shBtnShow: true, //  审核流程按钮切换控制
 
-      title: "提交审核",
+      title002: "提交审核",
       title003: "提交接收",
       ayData: {
         originFile: "",
@@ -150,6 +150,11 @@ export default {
   computed: {
     qxspInfo: function () {
       return this.$refs.uploadFiles;
+    },
+    // 控制在审批阶段和结果接收阶段才显示
+    flag: function () {
+      let arr = ['xsxc_fqqxsp', 'xsxc_xzqxsp', 'xsxc_sjbmsp', 'xsxc_jgjs'];
+      return arr.includes(this.title);
     }
   },
   mounted() {
@@ -162,10 +167,10 @@ export default {
     this.userId = localStorage.getItem("userId");
     /* 审核按钮的名字 */
     if (this.shData.sjjsBtn) {
-      this.title = "确认接收";
+      this.title002 = "确认接收";
     }
     if (this.shData.sjjgfkBtn) {
-      this.title = "提交反馈线索";
+      this.title002 = "提交反馈线索";
     }
 
     this.getUserList(0, true);
@@ -339,7 +344,7 @@ export default {
             console.warn(res);
             if (res.data === "success") {
               this.$message({
-                message: successMsg,
+                message: '操作成功',
                 type: "success"
               });
               this.$router.push({
@@ -488,7 +493,7 @@ export default {
               console.warn(res);
               if (res.data === "success") {
                 this.$message({
-                  message: successMsg,
+                  message: '操作成功',
                   type: "success"
                 });
                 this.$router.push({
