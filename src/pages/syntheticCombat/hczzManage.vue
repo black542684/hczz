@@ -62,8 +62,8 @@
       <div class="table-content pubTable">
         <ul class="clearfix" v-for="(item,index) in listData" :key="index" v-show="!noData">
           <li style="width: 5%">{{ index + 1 }}</li>
-          <li :title="item.coprName">{{ item.coprName }}</li>
-          <li :title="item.coprCode">{{ item.coprCode }}</li>
+          <li :title="item.coprName">{{ item.name }}</li>
+          <li :title="item.coprCode">{{ item.code }}</li>
           <li style="width: 7%" :title="item.caseTypeName">{{ item.caseTypeName }}</li>
           <li :title="item.coprDept">{{ item.coprDept }}</li>
           <li :title="item.createTime">{{ item.createTime }}</li>
@@ -92,7 +92,8 @@
   </div>
 </template>
 <script>
-import UtilService from '../../service/UtilService.js'
+import UtilService from '../../service/UtilService.js';
+import hczzURL from '../../util/url/hczzURL.js'; // url地址
 export default {
   name: "hczzManage",
   data() {
@@ -105,7 +106,7 @@ export default {
       },
       params: {
         createBy: '',
-        pageSize: 10000,
+        pageSize: 10,
         pageNum: 1,
         nameOrCode: "",
         statusType: "0",
@@ -126,147 +127,73 @@ export default {
     };
   },
   created() {
-    this.getUserInfos()
-    this.getStatusList()
+    // 获取用户信息
+    this.getUserInfos();
+    // 获取合战状态
+    this.getStatusList();
   },
   methods: {
     // 获取合战状态
     getStatusList() {
-      let that = this;
-      this.$Ajax.get(that.url.getStatusListUrl, {}).then(data => {
-        that.statusList = data.data
-        that.statusList.unshift({ name: '草稿', id: '0' })
+      this.$Ajax.get(hczzURL.getStatusList, {}).then(data => {
+        this.statusList = data.data
+        this.statusList.unshift({ name: '草稿', id: '0' })
       });
     },
     // 获取用户信息
     getUserInfos() {
       let that = this;
       this.$Ajax.get(that.url.getUserInfosUrl, {}).then(data => {
-        console.log('用户信息', data)
+        
         if (data.account !== '') {
           localStorage.setItem('userName', data.account)
           localStorage.setItem('userId', data.userId)
           localStorage.setItem('realName', data.realName)
           localStorage.setItem('token', data.token)
-          that.params.createBy = localStorage.getItem('userName')
+          that.params.createBy = data.account; // 当前登入账户
           that.getListData();
           that.getNum()
         }
       });
     },
     // 获取列表数据
-    getListData() {
-      let that = this;
+    async getListData() {
+      this.params.createTime = null;
+      this.params.finishTime = null;
       if (this.createTime) {
         this.params.createTime = UtilService.formatDuring(this.createTime.getTime(), 'yyyy-MM-dd')
-      } else {
-        this.params.createTime = null
-      }
+      } 
       if (this.finishTime) {
         this.params.finishTime = UtilService.formatDuring(this.finishTime.getTime(), 'yyyy-MM-dd')
-      } else {
-        this.params.finishTime = null
       }
-      this.$Ajax.get(that.url.getListDataUrl, that.params).then(data => {
-        console.log('列表数据为： ', data);
-        that.listData = data.data.result;
-        console.log('aaaaaaa', that.listData)
-        that.total = data.data.total;
-        if (that.total === 0) {
-          that.isPage = false;
-          that.noData = true;
-        } else {
-          that.noData = false;
-          if (that.total > that.params.pageSize) {
-            that.isPage = true;
-          } else {
-            that.isPage = false;
-          }
-        }
-      });
+      let { data: { result, total } } = await this.$Ajax.get(hczzURL.getListData, this.params);
+      console.log('列表数据为： ', result, total);
+      this.listData = result;  // 合战状态下拉列表
+      this.total = total;     // 分页总数
+      if (this.total === 0) return this.isPage = false,this.noData = true;
+      this.noData = false;
+      this.isPage = false;
+      if (this.total > this.params.pageSize) {
+        this.isPage = true;
+      }
     },
     // 查看详情
     goDetail(item) {
-      if (item.coprStatus === 0) { // 草稿状态
-        this.$router.push({
-          name: 'applySynCom',
-          query: {
-            id: item.id,
-            coprStatus: item.coprStatus,
-            taskId: item.taskId
-          }
-        })
-      } else if (item.statusId === 'hczzsq-main' || item.statusId === 'hczzsqjz' || item.statusId === 'hczzsqwz' || item.statusId === 'hczzsqsp') { // 退回到申请
-        this.$router.push({
-          name: 'applySynCom',
-          query: {
-            id: item.id,
-            isback: 'back',
-            deptType: item.statusId,
-            statusType: this.params.statusType,
-            taskId: item.taskId
-          }
-        })
-        // 发起部门审核
-      } else if (item.statusId === 'fqbmsh-main' || item.statusId === 'fqbmshnjz' || item.statusId === 'fqbmshnwz' || item.statusId === 'hczzshsp') {
-        this.$router.push({
-          name: 'checkSynCom',
-          query: {
-            id: item.id,
-            deptType: item.statusId,
-            statusType: this.params.statusType,
-            taskId: item.taskId
-          }
-        })
-        // 协作部门审核
-      } else if (item.statusId === 'jzbmsh' || item.statusId === 'wzbmsh' || item.statusId === 'spbmsh' || item.statusId === 'jzbmshns' || item.statusId === 'wzbmshs' || item.statusId === 'spbmshs') {
-        this.$router.push({
-          name: 'receiveSynCom',
-          query: {
-            id: item.id,
-            deptType: item.statusId,
-            statusType: this.params.statusType,
-            taskId: item.taskId
-          }
-        })
-      } else if (item.statusId === 'jzbmjs' || item.statusId === 'wzbmjs' || item.statusId === 'spbmjs') {
-        this.$router.push({
-          name: 'feedbackSynCom',
-          query: {
-            id: item.id,
-            deptType: item.statusId,
-            statusType: this.params.statusType,
-            taskId: item.taskId
-          }
-        })
-      } else if (item.statusId === 'jzbmfk' || item.statusId === 'wzbmfk' || item.statusId === 'spbmfk') {
-        this.$router.push({
-          name: 'arrestSynCom',
-          query: {
-            id: item.id,
-            deptType: item.statusId,
-            statusType: this.params.statusType,
-            taskId: item.taskId
-          }
-        })
-      } else if (item.statusId === 'jzbmqr' || item.statusId === 'wzbmqr' || item.statusId === 'spbmqr') {
-        this.$router.push({
-          name: 'evaluateSynCom',
-          query: {
-            id: item.id,
-            deptType: item.statusId,
-            statusType: this.params.statusType,
-            taskId: item.taskId
-          }
-        })
-      } else if (item.statusId === 'end') {
-        this.$router.push({
-          name: 'detailsSynCom',
-          query: {
-            id: item.id
-          }
-        })
-      }
+      console.log('查看详情',item);
+      // TODO:
+      this.$router.push({
+        name: 'hczzParticulars',
+        query: {
+          id: item.id,
+          coprStatus: item.coprStatus,
+          deptType: item.statusId,
+          procInstId:item.procInstId,
+          statusType: this.params.statusType,
+          statusId: item.statusId,
+          taskId: item.taskId,
+          statusStr: item.statusStr
+        }
+      });
     },
     // 查询状态总数
     getNum() {
@@ -275,7 +202,7 @@ export default {
         createBy: this.params.createBy
       }
       this.$Ajax.get(that.url.getNumUrl, params).then(data => {
-        console.log('data', data)
+        
         that.total_0 = data.data.total_0
         that.total_1 = data.data.total_1
         that.total_2 = data.data.total_2
@@ -290,9 +217,10 @@ export default {
       this.params.taskId = ''
       this.getListData();
     },
+    // 点击查询
     query() {
       if (
-        (this.createTime !== null) &
+        (this.createTime !== null) &&
         (this.finishTime !== null)
       ) {
         if (
@@ -305,14 +233,20 @@ export default {
           return;
         }
       }
+      // 获取列表数据
       this.getListData();
     },
     // 跳转到申请
     goApply() {
         this.$router.push({
-            name: 'applySynCom'
+            name: 'hczzParticulars',
+            query: {
+              isSQ: 1,
+              statusStr: '合成作战申请'
+            }
         })
     },
+    // 分页按钮
     handleCurrentChange(val) {
       this.params.pageNum = val;
       this.getListData();

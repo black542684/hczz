@@ -218,7 +218,6 @@ export default {
       //  调用详情数据
       this.getDetails();
     }
-    // TODO:
     // 测试方法, 这个是获取用户的  和historyFrom  取交集使用
     let res = await this.$Ajax.get('permissionApi/getFeatures?appCode=hczz').catch(err => console.log(err));
     let arr = res.map(item => item.code);
@@ -238,7 +237,7 @@ export default {
   watch: {
     // 判断附件数量是否为0
     originFileList(nv) {
-      // TODO: 这里的监听  ayData.originFile 这个属性，一开始没有需要注意
+      // 这里的监听  ayData.originFile 这个属性，一开始没有需要注意
       nv.length === 0
         ? (this.ayData.originFile = "")
         : (this.ayData.originFile = "线索协查信息附件已上传");
@@ -345,7 +344,7 @@ export default {
             date: moment().format("YYYY-MM-DD HH:mm:ss")
 					}
         }
-        
+        console.log('流程DATA', lcData);
         if (num !== 1) return this.$router.push({name: "clueAssistManage"});
 				this.$Ajax.post('flow/submitFlow', lcData, true).then(res=>{
 					if (res.data === "success") {
@@ -444,7 +443,8 @@ export default {
 			})
 			.catch(err => {
 				console.warn(err);
-			});
+      });
+      console.log('流程图数据', this.chartData);
     },
     //  查看流程
     checkProcess() {
@@ -512,7 +512,7 @@ export default {
         this.sjfkFJInfoList = uniq(attachments.filter(item => item.classify == 12));
       }
       
-      // TODO:  控制编辑只读状态
+      // 控制编辑只读状态
       // 控制 sqComp2
       if (activitiInfoList) {
         //  activitiInfoList为空，线索协查申请页面

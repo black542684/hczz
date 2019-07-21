@@ -456,7 +456,6 @@ export default {
             : (reviewData.opinionInfo.userList = this.shData.userLi);
 
           //  区县转市级审批再转接收和反馈的时候需要用到
-          // TODO
           /*  这是修改了的  */
           if (this.newUserList2 != "") {
             reviewData.opinionInfo.userList = this.newUserList2;

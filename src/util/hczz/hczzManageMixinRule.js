@@ -86,7 +86,7 @@ export default {
         jzFile: [
           { required: false, message: "请上传合成信息附件", trigger: "blur" }
         ],
-        // 网侦
+        // 网安
         wzQueryType: [
           {
             required: false,
@@ -100,7 +100,7 @@ export default {
         wzFile: [
           { required: false, message: "请上传合成信息附件", trigger: "blur" }
         ],
-        // 视频
+        // 刑侦
         spQueryType: [
           {
             required: false,
@@ -112,6 +112,49 @@ export default {
           { required: false, message: "请输入查询内容", trigger: "blur" }
         ],
         spFile: [
+          { required: false, message: "请上传合成信息附件", trigger: "blur" }
+        ],
+
+        // 经侦
+        jingzhenQueryType: [
+          {
+            required: false,
+            message: "请选择经侦侦查查询类别",
+            trigger: "blur"
+          }
+        ],
+        jingzhenQueryContent: [
+          { required: false, message: "请输入查询内容", trigger: "blur" }
+        ],
+        jingzhenFile: [
+          { required: false, message: "请上传合成信息附件", trigger: "blur" }
+        ],
+        // 反恐
+        fankongQueryType: [
+          {
+            required: false,
+            message: "请选择反恐侦查查询类别",
+            trigger: "blur"
+          }
+        ],
+        fankongQueryContent: [
+          { required: false, message: "请输入查询内容", trigger: "blur" }
+        ],
+        fankongFile: [
+          { required: false, message: "请上传合成信息附件", trigger: "blur" }
+        ],
+        // 治安
+        zhianQueryType: [
+          {
+            required: false,
+            message: "请选择治安侦查查询类别",
+            trigger: "blur"
+          }
+        ],
+        zhianQueryContent: [
+          { required: false, message: "请输入查询内容", trigger: "blur" }
+        ],
+        zhianFile: [
           { required: false, message: "请上传合成信息附件", trigger: "blur" }
         ],
     

@@ -3,7 +3,7 @@ function uniq(array) {
   var temp = [];
   var _arr = [];
   // 名字去重
-  if (typeof array[0] ===  'string') return _arr = Array.from(new Set(array));
+  if (typeof array[0] === 'string') return _arr = Array.from(new Set(array));
   // 对象去重
   for (var i = 0; i < array.length; i++) {
     if (temp.indexOf(array[i].fileName) == -1) {
@@ -87,7 +87,7 @@ const ayRules = {
 }
 
 // 取出两个数组中相同的数据
-function getSameArray(arr1=[], arr2=[]) {
+function getSameArray(arr1 = [], arr2 = []) {
   let temp1 = [];
   let temp2 = [];
   temp1 = arr1.length > arr2.length ? arr1 : arr2;   // 更长的数组
@@ -102,7 +102,7 @@ function deepCopy(obj) {
   var result = Array.isArray(obj) ? [] : {};
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) {
-      if (typeof obj[key] === 'object' && obj[key]!==null) {
+      if (typeof obj[key] === 'object' && obj[key] !== null) {
         result[key] = deepCopy(obj[key]);   //递归复制
       } else {
         result[key] = obj[key];
@@ -112,4 +112,13 @@ function deepCopy(obj) {
   return result;
 }
 
-export { uniq, ayRules, deepCopy, getSameArray };
+// 封装了一个getFormPromise去生成Promise对象，并使用Promise.all去并行调用返回最终的校验结果数组
+function getFormPromise(form) {
+  return new Promise(resolve => {
+    form.validate(res => {
+      resolve(res);
+    });
+  });
+}
+
+export { uniq, ayRules, deepCopy, getSameArray, getFormPromise };

@@ -195,7 +195,6 @@ export default {
     },
     // 查看详情
     goDetail(item) {
-        console.log(item)
         let queryData = {
           id: item.id,
           deptType: item.statusId,

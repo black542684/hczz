@@ -1,0 +1,323 @@
+* {
+  box-sizing: border-box;
+}
+.Breadcrumb {
+  line-height: 39px;
+  height: 39px;
+  border-bottom: 1px solid #d7dde5;
+  font-size: 14px;
+}
+.Breadcrumb > span {
+  cursor: pointer;
+}
+.Breadcrumb > span + span::before {
+  content: ' > ';
+}
+/* 修改饿了么样式 */
+.el-button {
+  color: #3173bf;
+  border-color: #3173bf;
+}
+.el-button--primary {
+  color: #fff;
+  background: #3173bf;
+  border-color: #3173bf;
+}
+.el-button--small,
+.el-button--small.is-round {
+  padding: 8px 25px;
+}
+.big-box {
+  width: 1306px;
+  margin: 0 auto;
+  padding: 0 0 50px;
+  box-sizing: border-box;
+  position: relative;
+}
+.header-container {
+  /* 修改指令名称宽度 */
+}
+.header-container .header-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #121e3d;
+  border-right: 1px solid #d7dde5;
+  padding-right: 10px;
+  margin-right: 10px;
+  height: 22px;
+  display: inline-block;
+}
+.header-container .header-back {
+  font-size: 16px;
+  color: #3173bf;
+}
+.header-container .el-row-style {
+  height: 70px;
+  padding: 20px 0;
+}
+.header-container .el-col-style {
+  padding: 4px 10px;
+}
+.header-container .el-row-right {
+  text-align: right;
+}
+.header-container .form-item {
+  border: 1px solid #d7dde5;
+  background: #f7faff;
+}
+.header-container .form-item + .form-item {
+  margin-top: 10px;
+}
+.header-container .form-item .instruct-name /deep/ .el-form-item__content {
+  width: 88%;
+}
+.header-container .form-item .brief-case-content {
+  width: 66% !important;
+  margin-right: 4px;
+  height: auto !important;
+}
+.header-container .form-item .brief-case-content /deep/ .el-form-item__content {
+  width: 88%;
+  height: 96px;
+}
+.header-container .form-item .brief-case-content /deep/ .el-form-item__content textarea {
+  resize: none;
+}
+.header-container .form-item .origin-checkbox {
+  width: 66% !important;
+}
+.header-container .form-item .checkbox-border {
+  border-bottom: 2px solid #3173bf;
+}
+.header-container .form-item .compound-info {
+  width: 100%;
+}
+.header-container .form-item .compound-info /deep/ .el-checkbox {
+  width: 60px;
+}
+.header-container .form-item .compound-info /deep/ .el-checkbox__label {
+  display: none;
+}
+.header-container .form-item .compound-info /deep/ .el-form-item__content {
+  position: relative;
+}
+.header-container .form-item .compound-info .jz {
+  position: absolute;
+  top: 0;
+  left: 28px;
+  cursor: pointer;
+}
+.header-container .form-item .compound-info .wj {
+  position: absolute;
+  top: 0;
+  left: 122px;
+  cursor: pointer;
+}
+.header-container .form-item .compound-info .sp {
+  position: absolute;
+  top: 0;
+  left: 210px;
+  cursor: pointer;
+}
+.header-container .form-item .compound-info .jingzhen {
+  position: absolute;
+  top: 0;
+  left: 300px;
+  cursor: pointer;
+}
+.header-container .form-item .compound-info .fankong {
+  position: absolute;
+  top: 0;
+  left: 388px;
+  cursor: pointer;
+}
+.header-container .form-item .compound-info .zhian {
+  position: absolute;
+  top: 0;
+  left: 476px;
+  cursor: pointer;
+}
+.header-container .form-item .origin-file-list {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #a0a5ab;
+  width: 618px;
+  height: 96px;
+  padding-left: 10px;
+  background-color: #ffffff;
+  border: 1px solid #c1cfdf;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  overflow: auto;
+}
+.header-container .form-item .origin-file-list ul {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.header-container .form-item .origin-file-list ul li {
+  width: 50%;
+  height: 24px;
+  line-height: 24px;
+}
+.header-container .form-item .origin-file-list ul li span {
+  display: inline-block;
+  max-width: 240px;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.header-container .form-item .origin-file-list ul li .iconfont {
+  font-size: 12px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.header-container .form-item .origin-upload {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  width: 140px;
+  height: 96px;
+  background-color: #f1f6ff;
+  border: 1px solid #c1cfdf;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.header-container .form-item .origin-upload > div {
+  color: #3173bf;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #3173bf;
+  border-radius: 5px;
+  margin: 32px 20px;
+}
+.header-container .form-item .origin-upload > input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.header-container .form-item .upload-accessory .upload-box {
+  position: absolute;
+  left: -148px;
+  top: 1px;
+  z-index: 100;
+  width: 140px;
+  height: 94px;
+  background: #f1f6ff;
+  border-left: 1px solid #c1cfdf;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  padding-top: 32px;
+  box-sizing: border-box;
+}
+.header-container .form-item .upload-accessory /deep/ .el-upload-list {
+  position: absolute;
+  left: -742px;
+  top: 6px;
+}
+.header-container .form-item .upload-accessory /deep/ .el-upload-list li {
+  float: left;
+  width: 196px;
+  margin-top: 0;
+}
+.header-container .form-item .upload-accessory /deep/ .el-upload-list li .el-icon-close-tip {
+  display: none !important;
+}
+.header-container .form-btn-item {
+  text-align: center;
+  margin-top: 26px;
+}
+.header-container .form-btn-item .el-form-item {
+  margin-bottom: 0 !important;
+}
+.header-container .form-title {
+  height: 39px;
+  border-bottom: 1px solid #d7dde5;
+  padding-left: 18px;
+  color: #6b757e;
+  line-height: 39px;
+  font-size: 14px;
+  background: #f1f6ff;
+  margin-bottom: 20px;
+}
+.header-container /deep/ .form-style {
+  color: #6b757e;
+  border-top: 0;
+}
+.header-container /deep/ .instruct-form .el-form-item__label {
+  color: #6b757e;
+}
+.header-container /deep/ .instruct-form .el-form-item {
+  width: 33%;
+  margin-right: 0;
+  margin-bottom: 18px;
+  height: 33px;
+}
+.header-container /deep/ .instruct-form .el-form-item__label {
+  line-height: 33px;
+}
+.header-container /deep/ .instruct-name-input input {
+  height: 28px;
+  line-height: 28px;
+}
+.header-container /deep/ .form-ipt-style input {
+  height: 28px;
+  line-height: 28px;
+}
+.header-container /deep/ .el-form-item__content {
+  line-height: 33px;
+  height: 33px;
+}
+.header-container /deep/ .el-form-item__content .el-select {
+  height: 33px;
+  line-height: 33px;
+}
+.header-container /deep/ .el-form-item__content .el-select .el-input__inner {
+  height: 28px;
+  line-height: 28px;
+  width: 200px;
+}
+.header-container .btn-quote {
+  position: absolute;
+  right: -40px;
+  top: 4px;
+  height: 28px;
+  line-height: 28px;
+}
+/* 流程弹框样式 */
+.process-box {
+  width: 1306px;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  z-index: 100;
+  box-sizing: border-box;
+}
+.process-box .process-border {
+  height: 480px;
+  border: 1px solid #3b79c1;
+  background: #f7faff;
+}
+.icon-sq {
+  width: 24px;
+  height: 24px;
+  background: url('https://www.baidu.com/img/baidu_jgylogo3.gif') no-repeat center center;
+}
+.br-style /deep/ .el-form-item__label {
+  line-height: 18px !important;
+  padding-left: 16px !important;
+}
+.compound-info {
+  width: 100% !important;
+}

@@ -42,19 +42,19 @@
           <div class="form-title">合成信息</div>
           <el-form-item
             label="合战名称："
-            prop="coprName"
+            prop="name"
             class="instruct-name"
             style="width: 66%;margin-right: 4px;"
           >
             <el-input
-              v-model.trim="instructForm.coprName"
+              v-model.trim="instructForm.name"
               class="instruct-name-input form-ipt-style"
               size="small"
               :disabled="isDisable"
             ></el-input>
           </el-form-item>
-          <el-form-item label="合战编号：" prop="coprCode">
-            <div>{{instructForm.coprCode}}</div>
+          <el-form-item label="合战编号：" prop="code">
+            <div>{{instructForm.code}}</div>
           </el-form-item>
           <el-form-item label="发起单位：" prop="createDepName">
             <div>{{instructForm.createDepName}}</div>
@@ -463,11 +463,11 @@ export default {
       token: "",
       userId: "",
       instructForm: {
-        coprName: "", // 合战名称
-        coprCode: "", // 合战编号
+        name: "", // 合战名称
+        code: "", // 合战编号
         createDepName: "", // 发起单位
         createName: "", // 发起人
-        createBy: "",
+        createBy: "",   // 当前登入人
         createTime: "", // 下发时间
 
         //  案源信息内容
@@ -752,7 +752,7 @@ export default {
   created() {
     this.taskId = this.$route.query.taskId ? this.$route.query.taskId : "";
     let nowTime = +new Date();
-    this.instructForm.coprCode = "XC" + nowTime;
+    this.instructForm.code = "XC" + nowTime;
     this.instructForm.createTime = UtilService.formatDuring(
       nowTime,
       "yyyy-MM-dd HH:mm:ss"

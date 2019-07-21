@@ -33,7 +33,7 @@ export default {
         ],
         caseAmount: [
           { required: true, message: "请输入案件数量", trigger: "blur" },
-          { min: 1, max: 50, message: "请输入1-50个字符", trigger: ["blur"] },
+          //{ min: 1, max: 50, message: "请输入1-50个字符", trigger: "blur" },
           { validator: numCheck, trigger: "blur" }
         ],
         judgmentName: [

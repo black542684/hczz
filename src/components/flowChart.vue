@@ -77,9 +77,14 @@ export default {
             stroke: "#bfcbd6", //  连接线颜色
             lineWidth: 2
           }
+        },
+        modes: {
+          default: ["drag-canvas"]
         }
       });
       graph.read(data);
+      // TODO:
+      graph.zoom(1, { x: 653, y: 240 });
     }
   }
 };

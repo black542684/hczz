@@ -25,27 +25,12 @@ import detailsInstructions from '@/pages/militaryInstruction/DetailsInstructions
 import ypManagement from '@/pages/militaryInstruction/YPManagement.vue'
 import fightManage from '@/pages/militaryInstruction/fightManage.vue'
 
-
-//  合成作战申请
-import applySynCom from '@/pages/syntheticCombat/ApplySynCom.vue'
-//  合成作战审核
-import checkSynCom from '@/pages/syntheticCombat/CheckSynCom.vue'
-//  合成作战审批
-import approveSynCom from '@/pages/syntheticCombat/ApproveSynCom.vue'
-//  合成作战接收
-import receiveSynCom from '@/pages/syntheticCombat/ReceiveSynCom.vue'
-//  合成作战反馈
-import feedbackSynCom from '@/pages/syntheticCombat/FeedbackSynCom.vue'
-//  合成作战落地抓捕
-import arrestSynCom from '@/pages/syntheticCombat/ArrestSynCom.vue'
-//  合成作战确认评价
-import evaluateSynCom from '@/pages/syntheticCombat/EvaluateSynCom.vue'
-//  合成作战详情
-import detailsSynCom from '@/pages/syntheticCombat/DetailsSynCom.vue'
+// TODO:
+// TODO:
 //  合成作战管理
-import scManagement from '@/pages/syntheticCombat/SCManagement.vue'
-
-import hczzManage from '@/pages/syntheticCombat/hczzManage.vue'
+import hczzManage from '@/pages/syntheticCombat/hczzManage.vue';
+// 合成作战详情页面
+import hczzParticulars from '@/pages/syntheticCombat/hczzParticulars.vue';
 
 
 
@@ -129,63 +114,19 @@ export default new Router({
         name: 'editMonitor',
         component: editMonitor
     },
-
-
-
-    {   //  合成作战申请
-      path: '/applySynCom',
-      name: 'applySynCom',
-      component: applySynCom
-    },
-    {   //  合成作战审核
-      path: '/checkSynCom',
-      name: 'checkSynCom',
-      component: checkSynCom
-    },
-    {   //  合成作战发起部门审批
-      path: '/approveSynCom',
-      name: 'approveSynCom',
-      component: approveSynCom
-    },
-    {   //  合成作战协作部门审核
-      path: '/receiveSynCom',
-      name: 'receiveSynCom',
-      component: receiveSynCom
-    },
-    {   //  合成作战协作部门接收
-      path: '/feedbackSynCom',
-      name: 'feedbackSynCom',
-      component: feedbackSynCom
-    },
-    {   //  合成作战协作部门反馈
-      path: '/arrestSynCom',
-      name: 'arrestSynCom',
-      component: arrestSynCom
-    },
-    {   //  合成作战发起部门确认
-      path: '/evaluateSynCom',
-      name: 'evaluateSynCom',
-      component: evaluateSynCom
-    },
-    {   //  合成作战详情
-      path: '/detailsSynCom',
-      name: 'detailsSynCom',
-      component: detailsSynCom
-    },
+    // TODO:
+    // TODO:
     {  //  合成作战管理
       path: '/hczzManage',
       name: 'hczzManage',
       component: hczzManage
     },
-
-
-
-    
-    {   
-      path: '/scManagement',
-      name: 'scManagement',
-      component: scManagement
+    { // 合成作战详情页面
+      path: '/hczzParticulars',
+      name: 'hczzParticulars',
+      component: hczzParticulars
     },
+
     {
       path: '/synthesizeExpand',
       name: 'synthesizeExpand',
